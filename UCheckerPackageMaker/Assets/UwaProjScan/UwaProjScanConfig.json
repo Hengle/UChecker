@@ -1,0 +1,1460 @@
+{
+   "General" : {
+      "Global_Assets_Scan_Mode" : "TargetOnlyWithDepends",
+      "Global_Target_Dirs" : [
+         "Assets"
+      ],
+      "Global_Ignore_Dirs" : [
+      ],
+      "Global_Failed_Data_Folder" : "",
+      "RunSelectedModules_Includes" : {
+         "Basic_Assets_Check" : true,
+         "Scenes_Check" : true,
+         "Global_Settings_Check" : true,
+         "CS_Check" : true,
+         "Lua_Check" : true,
+         "Custom_Rules_Check" : true,
+         "Effects_Play_Check" : true,
+         "Shader_Analysis" : true,
+         "Art_Assets_Check" : true,
+         "Assets_Reference_Check" : true
+      },
+      "FixSelectedModules_Includes" : {
+         "Basic_Assets_Fix" : true,
+         "Scenes_Fix" : true,
+         "Global_Settings_Fix" : true,
+         "CS_Fix" : false,
+         "Lua_Fix" : false,
+         "Custom_Rules_Fix" : false,
+         "Effects_Play_Fix" : false,
+         "Shader_Fix" : false,
+         "Art_Assets_Fix" : false,
+         "Assets_Reference_Fix" : false
+      }
+   },
+   "Basic_Assets_Check" : {
+      "Rule_List" : {
+         "VideoClip.Video_SizeLimit" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_AlphaAllOne" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_TooManyTransparentPixels" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_CompressionFormat" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_FilterMode" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_PureColor" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_Resolution" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_RW" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_SpriteMipmap" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_WrapMode" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.Animator_OptimizeGameObjects" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.Animator_ApplyRootMotion" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.LODGroup_MissingRenderer" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_TextureCount" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_TextureSize" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_MeshSize" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_MeshEmitCount" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_MeshRW" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_MaxParticle" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_StandardShader" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.SkinnedMeshRenderer_MotionVector" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.UIImage_Tiled" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.UIImage_Unvisible" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.UIText_Outline" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.UIRawImage_DefaultTexture" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.UIRawImage_Unvisible" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_RW" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_OptimizeMesh" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_Tangent" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_Normal" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_Color" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_UV2" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_UV3or4" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.Mesh_TriangleLimit" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Material.Mat_EmptyTex" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Material.Mat_UselessTex" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Material.Mat_EqualTex" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Material.Mat_PureColorTex" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "AudioClip.Audio_Streaming" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "AudioClip.Audio_FormatPCM" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "AudioClip.Audio_Quality" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "AudioClip.Audio_OptimizeSampleRate" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Animation.AnimationClip_FloatFormat" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Animation.AnimationClip_ScaleCurve" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Animation.AnimationClip_Compression" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Animation.AnimationClip_ResampleCurve" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Animation.AnimatorController_AnimatorStateNumber" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_CollisionOrTrigger" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.SkinnedMeshRenderer_TooManyBones" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "AudioClip.Audio_DoubleChannels" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Texture2D.Texture_AnisoFilter" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.PS_PrewarmEnabled" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Material.Mat_StandardShader" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         }
+      }
+   },
+   "Scenes_Check" : {
+      "Scene_Check_Mode" : "All",
+      "Rule_List" : {
+         "Editor_MobileFog" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_MultipleAudioListeners" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_ShadowResolution" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_MeshCollider" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_StaticRigidBody" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_RealtimeGI" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_RigidBody" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_CanvasChildren" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_PrefabType" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_NumOfTriangles" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_NumOfVertices" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_TriNumOfMeshCollider" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_NumOfRealtimeShadow" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         },
+         "Scene_RenderingPath" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "fixEnabled" : true
+         }
+      }
+   },
+   "Global_Settings_Check" : {
+      "Rule_List" : {
+         "EditorSettings.Editor_BuildIcons" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : false,
+            "fixEnabled" : true
+         },
+         "EditorSettings.Editor_CompanyName" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : false,
+            "fixEnabled" : true
+         },
+         "EditorSettings.Quality_GlobalAnisoFilter" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : false,
+            "fixEnabled" : true
+         },
+         "EditorSettings.Player_OptimizeMeshDataDisabled" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : false,
+            "fixEnabled" : true
+         },
+         "EditorSettings.Player_CodeStripping" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : false,
+            "fixEnabled" : true
+         }
+      }
+   },
+   "CS_Check" : {
+      "Rule_List" : {
+         "TagCompare" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "EmptyBodyUpdate" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "OnGUIUsage" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "GetPixelsCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Get_mainCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "GetComponentsInChildrenCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "GetComponentsInParentCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Get_materialCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "UsingLinq" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "UsingReflection" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "GetDataCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "SetPixelsCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "SendMessageCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "OnGUICall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Get_sharedMaterialsCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Get_touchesCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "FindMethodsCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "NonAllocAbleFunctionsCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Get_bytesCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "NewEmptyContainer" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "NewObjInUpdate" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "StringModificationCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "LogCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "ForeachCall" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         }
+      }
+   },
+   "Lua_Check" : {
+      "checkEnabled" : false,
+      "hasSrcPath" : false,
+      "MacOS_Luacheck_Path" : "/usr/local/bin/luacheck",
+      "Lua_Scripts_Root_Path" : "Assets/../Lua/LuaScripts",
+      "-no-global" : false,
+      "-no-unused" : false,
+      "-no-redefined" : false,
+      "-no-unused-args" : false,
+      "Global_Variable_Allowance" : "AllowDefined",
+      "Globals" : "",
+      "Read_Globals" : "",
+      "Lua_Postfixes" : "lua,xlua",
+      "Rule_List" : {
+         "AccessingUndefinedGVariable" : true,
+         "AccessingUninitializedLVariable" : true,
+         "AccessLVariableNeverSet" : true,
+         "AccessUndefinedGVariableField" : true,
+         "AssignmentLeftLong" : true,
+         "AssignmentLeftShort" : true,
+         "CodeWhitespace" : true,
+         "CommentWhitespace" : true,
+         "CyclomaticComplexity" : true,
+         "EmptyDoendBlock" : true,
+         "EmptyIfBranch" : true,
+         "EmptyStatement" : true,
+         "InconsistentIndentation" : true,
+         "LineWhitespace" : true,
+         "LongLine" : true,
+         "LoopOnce" : true,
+         "MutateLVariableNeverAccsessed" : true,
+         "MutateValueLVariableNeverAccsessed" : true,
+         "MutatingUndefinedGVariable" : true,
+         "MutatingUninitializedLVariable" : true,
+         "NegativeStep" : true,
+         "RedefineArgument" : true,
+         "RedefineLoop" : true,
+         "RedefineLVariable" : true,
+         "SetArguementNeverAccessed" : true,
+         "SetLoopNeverAccessed" : true,
+         "SetLVariableNeverAccessed" : true,
+         "SettingReadOnlyGVariable" : true,
+         "SettingReadOnlyGVariableField" : true,
+         "SettingUndefinedGVariable" : true,
+         "SettingUndefinedGVariableField" : true,
+         "ShadowArguement" : true,
+         "ShadowLoop" : true,
+         "ShadowLVariable" : true,
+         "ShadowUpvaleArguement" : true,
+         "ShadowUpvalue" : true,
+         "ShadowUpvalueLoop" : true,
+         "StringWhitespace" : true,
+         "SyntaxError" : true,
+         "UnreachableCode" : true,
+         "UnusedArguement" : true,
+         "UnusedImplicitlyDefinedGVariable" : true,
+         "UnusedLabel" : true,
+         "UnusedLoop" : true,
+         "UnusedLVariable" : true,
+         "UnusedValueArguement" : true,
+         "UnusedValueLoop" : true,
+         "UnusedValueLVariable" : true,
+         "UnusedValueTableLiteralField" : true
+      }
+   },
+   "Effects_Play_Check" : {
+      "Rule_List" : {
+         "Eff_TooLargeMemory" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Eff_TooManyTextures" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Eff_TooManyPSComponents" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Eff_TooHighDrawcallPeak" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Eff_LargeOverdrawRate" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Eff_TooManyParticles" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         }
+      }
+   },
+   "Shader_Analysis" : {
+      "Rule_List" : {
+         "ProjS_TooManyGlobalKWs" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "ProjS_TooManyVariants" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "ProjS_TextureNumber" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "BuiltS_TooManyVariants" : {
+            "checkEnabled" : true,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+               "Assets"
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : false,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         }
+      }
+   },
+   "Art_Assets_Check" : {
+      "Rule_List" : {
+         "Mesh.ImproperPivotPos" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "tolerance" : 0.400000005960464,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.FaceTexDensityAvgTooSmall" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "minSqrtDensity" : 128,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Prefab.FaceTexDensityVrcTooLarge" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "maxVariance" : 1000,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.UVRangeTooLarge" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "maxUVRange" : 16,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.VertexDensityTooLarge" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "maxDensity" : 40,
+            "distance" : 30,
+            "fov" : 60,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.HasInvisibleFaces" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.HardedgeUVSeamConsistency" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "threshold" : 32,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         },
+         "Mesh.UVPaddingTooSmall" : {
+            "checkEnabled" : false,
+            "hasSrcPath" : true,
+            "threshold" : 4,
+            "target_dirs" : [
+            ],
+            "ignore_dirs" : [
+            ],
+            "SeparateDirSettingsEnabled" : true,
+            "WhiteListPath" : "",
+            "failedRulePath" : "",
+            "fixEnabled" : false
+         }
+      }
+   }
+}
