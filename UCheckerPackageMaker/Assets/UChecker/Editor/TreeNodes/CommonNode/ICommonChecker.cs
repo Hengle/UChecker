@@ -3,8 +3,15 @@ using System.Collections.Generic;
 
 namespace UChecker.Editor
 {
+    public interface ICommonCheck
+    {
+        CommonCheckerSetting Setting { get; }
+        void Check();
+        void Fix();
+    }
+    
     [Serializable]
-    public class CommonChecker
+    public class CommonCheckerSetting
     {
         public string Title;
         public string Rule;
