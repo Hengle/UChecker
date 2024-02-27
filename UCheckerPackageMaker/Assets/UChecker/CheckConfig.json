@@ -1,0 +1,28 @@
+{
+  "GlobalDefaultPaths": [
+    {
+      "FolderPath": "Assets",
+      "Params": []
+    }
+  ],
+  "GlobalWhiteListPaths": [],
+  "CommonChecks": [
+    {
+      "Setting": {
+        "Title": "检查纹理尺寸",
+        "Rule": "检查纹理尺寸 推荐纹理尺寸为 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512",
+        "EnableCheck": true,
+        "EnableFix": false,
+        "EnableCustomConfig": true,
+        "CustomConfigPath": [
+          {
+            "FolderPath": "Assets",
+            "Params": []
+          }
+        ],
+        "CustomWhiteListPath": []
+      },
+      "CheckType": "UChecker.Editor.CommonTextureSizeCheck"
+    }
+  ]
+}
