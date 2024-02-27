@@ -9,27 +9,32 @@ namespace UChecker.Editor
 {
     public class UCheckerWindow : EditorWindow
     {
-        public const string BASIC_SETTING = "基本设置";
         public const float DRAW_LINE_AREA_WIDTH = 240;
         public const float MENU_BTN_HEIGHT = 30;
         private  static readonly Vector2 LeftPivot = new Vector2(0, 0);
         private const float LINE_THICK = 2;
         private const float TREE_VIEW_OFFSET = 5;
+        private Dictionary<string,ITreeView> m_menuTrees = new Dictionary<string,ITreeView>();
 
-        public UCheckerWindow()
-        {
-            MenuTrees.Add(BASIC_SETTING,new CommonNodeView());
-        }
-        [MenuItem("Tools/OpenCheckWindow")]
+        [MenuItem("Tools/YScan/OpenCheckWindow")]
         public static void OpenMapLineWindow()
         {
             UCheckerWindow pipeLineWindow = EditorWindow.GetWindow<UCheckerWindow>();
             pipeLineWindow.Show();
-            pipeLineWindow.titleContent = new GUIContent("PCG流水线");
+            pipeLineWindow.titleContent = new GUIContent("Master Check");
             pipeLineWindow.position = pipeLineWindow.GetWindowRect();
         }
         
-        private Dictionary<string,ITreeVIew> MenuTrees = new Dictionary<string,ITreeVIew>();
+        [MenuItem("Tools/YScan/ForceRunAll")]
+        public static void ForceRunAll()
+        {
+            var setting = UCheckWindowConfig.Get();
+            foreach (var commonCheck in setting.CommonChecks)
+            {
+                commonCheck.Check();
+            }
+        }
+        
     
         private string m_select = "";
         // Start is called before the first frame update
@@ -39,9 +44,10 @@ namespace UChecker.Editor
         }
         private void OnEnable()
         {
-            if (!MenuTrees.ContainsKey(m_select))
+            m_menuTrees = UCheckWindowConfig.GetMenuTrees();
+            if (!m_menuTrees.ContainsKey(m_select))
             {
-                m_select = BASIC_SETTING;
+                m_select = UCheckWindowConfig.BASIC_SETTING;
             }
         }
 
@@ -51,12 +57,13 @@ namespace UChecker.Editor
             var area = GetArea();
             GUILayout.BeginArea(area);
             Handles.color = Color.black;
-            Handles.DrawLine(new Vector2(area.x + DRAW_LINE_AREA_WIDTH, 0), new Vector2(area.x + DRAW_LINE_AREA_WIDTH, area.height), LINE_THICK);
+            var rect = GetWindowRect();
+            Handles.DrawLine(new Vector2(area.x + DRAW_LINE_AREA_WIDTH, 0), new Vector2(area.x + DRAW_LINE_AREA_WIDTH,rect.height * 2), LINE_THICK);
             Handles.DrawLine(new Vector2(0,1), new Vector2(area.width, 1), LINE_THICK);
             Handles.color = Color.white;
             GUILayout.BeginVertical();
             GUILayout.Space(1);
-            foreach (var menuTree in MenuTrees)
+            foreach (var menuTree in m_menuTrees)
             {
                 var menu =menuTree.Key;
                 if (menu == m_select)
@@ -67,7 +74,7 @@ namespace UChecker.Editor
                 {
                     GUI.color = color;
                 }
-                if (GUILayout.Button(menu.ToString(), GUILayout.Width(DRAW_LINE_AREA_WIDTH-1), GUILayout.Height(MENU_BTN_HEIGHT)))
+                if (GUILayout.Button(menu, GUILayout.Width(DRAW_LINE_AREA_WIDTH-1), GUILayout.Height(MENU_BTN_HEIGHT)))
                 {
                     m_select = menu;
                 }
@@ -75,7 +82,7 @@ namespace UChecker.Editor
             }
     
             GUI.color = color;
-            if (MenuTrees.TryGetValue(m_select,out var treeVIew))
+            if (m_menuTrees.TryGetValue(m_select,out var treeVIew))
             {
                 DrawTreeView(treeVIew);
             }
@@ -83,10 +90,10 @@ namespace UChecker.Editor
             GUILayout.EndArea();
         }
         
-        private void DrawTreeView(ITreeVIew menuTree)
+        private void DrawTreeView(ITreeView menuTree)
         {
             GUILayout.BeginArea(GetTreeViewArea());
-            menuTree.OnGUI();
+            menuTree.OnGUI(this);
             GUILayout.EndArea();
         }
         

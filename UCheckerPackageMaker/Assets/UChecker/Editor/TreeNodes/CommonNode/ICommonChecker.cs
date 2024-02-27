@@ -3,11 +3,24 @@ using System.Collections.Generic;
 
 namespace UChecker.Editor
 {
-    public interface ICommonCheck
+    [Serializable]
+    public class CommonCheck
     {
-        CommonCheckerSetting Setting { get; }
-        void Check();
-        void Fix();
+        public CommonCheckerSetting Setting = new CommonCheckerSetting();
+        public ICheck CheckType;
+        public CommonCheck(ICheck ctx)
+        {
+            CheckType = ctx;
+        }
+        public void Check()
+        {
+            CheckType?.Check(Setting);
+        }
+    }
+
+    public interface ICheck
+    {
+        void Check(CommonCheckerSetting setting);
     }
     
     [Serializable]
@@ -22,6 +35,12 @@ namespace UChecker.Editor
         public List<string> CustomConfigPath;
         //白名单
         public List<string> CustomWhiteListPath;
+
+        public CommonCheckerSetting()
+        {
+            CustomConfigPath = new List<string>(){"Assets","Assets2"};
+            CustomWhiteListPath = new List<string>();
+        }
     }
     
     public abstract class ConditionBase
