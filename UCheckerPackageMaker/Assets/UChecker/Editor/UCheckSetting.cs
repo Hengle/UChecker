@@ -41,6 +41,11 @@ namespace UChecker.Editor
         public const string NAME_SPACE = "UChecker.Editor";
         public const string NAME_SPACE_FIX = "UChecker.Editor.RuleFixer";
 
+        public static readonly string[] AssemblyPaths = new string[]
+        {
+            "Assembly-CSharp-Editor",
+            "Assembly-CSharp",
+        };
         // public static Dictionary<string, ITreeView> GetMenuTrees()
         // {
         //     Dictionary<string,ITreeView> menuTrees = new Dictionary<string,ITreeView>();
@@ -102,21 +107,23 @@ namespace UChecker.Editor
                 setting.CommonChecks = new List<CommonCheck>();
                 setting.CustomChecks = new List<CommonCheck>();
                 AddBasicCheckSetting(setting.CommonChecks);
-
+                var fixers = ReadFixTypes();
                 if (File.Exists(CONFIG_PATH))
                 {
                     var localConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<UCheckSetting>(File.ReadAllText(CONFIG_PATH));
                     MergeUCheckSetting(setting, localConfig);
                     SaveConfig();
                 }
-
                 s_setting = setting;
+                MapCheckFixer(s_setting.CommonChecks, fixers);
+                MapCheckFixer(s_setting.CustomChecks, fixers);
                 SaveConfig();
             }
 
             return s_setting;
         }
 
+   
         private static void MergeUCheckSetting(UCheckSetting target, UCheckSetting input)
         {
             target.GlobalDefaultPaths = input.GlobalDefaultPaths;
@@ -131,12 +138,32 @@ namespace UChecker.Editor
             target.CustomChecks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
         }
 
+        private static void MapCheckFixer(List<CommonCheck> checks,Dictionary<string,string> fixers)
+        {
+            foreach (var check in checks)
+            {
+                if (fixers.TryGetValue(check.CheckType,out var fixType))
+                {
+                    check.FixType = fixType;
+                }
+                else
+                {
+                    check.FixType = null;
+                }
+            }
+        }
+
+        
         private static void AddBasicCheckSetting(List<CommonCheck> checks)
         {
-            var fixer = GetFixTypes();
-            var doMain = AppDomain.CurrentDomain;
-            // var assemblies = doMain.ReflectionOnlyGetAssemblies(); 也可以通过反射
-            var assemblies = doMain.GetAssemblies();
+            Assembly[] assemblies = new Assembly[AssemblyPaths.Length];
+            for (int i = 0; i < AssemblyPaths.Length; i++)
+            {
+                assemblies[i] = Assembly.Load(AssemblyPaths[i]);
+            }
+            // var doMain = AppDomain.CurrentDomain;
+            // // var assemblies = doMain.ReflectionOnlyGetAssemblies(); 也可以通过反射
+            // var assemblies = doMain.GetAssemblies();
             // 遍历，所有的程序集
             for (int i = 0; i < assemblies.Length; i++)
             {
@@ -159,15 +186,12 @@ namespace UChecker.Editor
                     var attr = targetType.GetCustomAttribute<RuleCheckAttribute>();
                     if (attr == null)
                         continue;
-                    // 此处识别到了添加了指定自定义属性的Type，以及属性中的值
                     string tile = attr.title;
                     string rule = attr.rule;
                     bool enableCheck = attr.enableCheck;
                     bool enableFix = attr.enableFix;
-                    fixer.TryGetValue(targetType.FullName, out var fixType);
                     var check = new CommonCheck(targetType)
                     {
-                        FixType = fixType,
                         Setting =
                         {
                             Title = tile,
@@ -183,13 +207,18 @@ namespace UChecker.Editor
             checks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
         }
 
-        public static Dictionary<string,string> GetFixTypes()
+        public static Dictionary<string,string> ReadFixTypes()
         {
+            Assembly[] assemblies = new Assembly[AssemblyPaths.Length];
+            for (int i = 0; i < AssemblyPaths.Length; i++)
+            {
+                assemblies[i] = Assembly.Load(AssemblyPaths[i]);
+            }
             Dictionary<string, string> fixers = new Dictionary<string, string>();
             string fixRule = "UChecker.Editor.IRuleFixer";
-            var doMain = AppDomain.CurrentDomain;
+            // var doMain = AppDomain.CurrentDomain;
             // var assemblies = doMain.ReflectionOnlyGetAssemblies(); 也可以通过反射
-            var assemblies = doMain.GetAssemblies();
+            // var assemblies = doMain.GetAssemblies();
             // 遍历，所有的程序集
             for (int i = 0; i < assemblies.Length; i++)
             {
