@@ -92,8 +92,8 @@ namespace UChecker.Editor
         private void DrawTreeView(ITreeView menuTree)
         {
             GUILayout.BeginArea(GetTreeViewArea());
-            GUI.color = Color.green;
-            if (GUILayout.Button("Save",GUILayout.Width(100)))
+            GUI.color = Color.yellow;
+            if (GUILayout.Button("保存配置",GUILayout.Width(100)))
             {
                 if (EditorUtility.DisplayDialog("Save", "保存配置？", "Yes", "No"))
                 {
