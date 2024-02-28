@@ -9,7 +9,8 @@ namespace UChecker.Editor
         protected override string[] SearchPattern => new[] { "*.png", "*.jpg", "*.tga" };
         protected override void ForEachCheckConfigPath(string path, ConfigCell cell,ReportInfo reportInfo)
         {
-            if (cell.Params.Count > 0 && int.TryParse(cell.Params[0], out int v))
+            var param = cell.TryGetFiled("size");
+            if (param!=null && int.TryParse(param.Value, out int v))
             {
                 MaxSize = v;
             }

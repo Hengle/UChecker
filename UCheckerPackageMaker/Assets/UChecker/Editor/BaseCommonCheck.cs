@@ -60,10 +60,11 @@ namespace UChecker.Editor
                 var files = Directory.GetFiles(path, SearchPattern[i], SearchOption.AllDirectories);
                 foreach (var file in files)
                 {
-                    var t = ForEachCheckAssetPath(file,cell,reportInfo,out var asset);
+                    string filePath = file.Replace("\\", "/");
+                    var t = ForEachCheckAssetPath(filePath,cell,reportInfo,out var asset);
                     if (t == ECheckResult.Error || t == ECheckResult.Warning)
                     {
-                        reportInfo.AddAssetError(asset,$"{t.ToString()}: {file}");
+                        reportInfo.AddAssetError(asset,$"{t.ToString()}: {filePath}");
                     }
                 }
             }

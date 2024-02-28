@@ -161,7 +161,11 @@ namespace UChecker.Editor
                 {
                     GUILayout.BeginHorizontal();
                     EditorGUILayout.Space(25);
-                    cell.Params[j] = GUILayout.TextField(cell.Params[j],GUILayout.MinWidth(500));
+                    var config =   cell.Params[j];
+                    GUILayout.Label("字段名:");
+                    config.FieldName= GUILayout.TextField(config.FieldName,GUILayout.MinWidth(200));
+                    GUILayout.Label("值:");
+                    config.Value = GUILayout.TextField(config.Value,GUILayout.MinWidth(200));
                     if (GUILayout.Button("删除 -"))
                     {
                         cell.Params.RemoveAt(j);
@@ -173,7 +177,11 @@ namespace UChecker.Editor
                 EditorGUILayout.Space(25);
                 if (GUILayout.Button("添加参数 +", GUILayout.Width(80)))
                 {
-                    cell.Params.Add("");
+                    cell.Params.Add(new CellParam()
+                    {
+                        FieldName = "FieldName",
+                        Value = "填写值",
+                    });
                 }
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();

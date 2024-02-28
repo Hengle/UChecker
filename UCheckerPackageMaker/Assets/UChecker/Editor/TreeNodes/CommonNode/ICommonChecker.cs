@@ -65,14 +65,26 @@ namespace UChecker.Editor
     /// <summary>
     /// 配置
     /// </summary>
+    [Serializable]
     public class ConfigCell
     {
         public string FolderPath;
-        public List<string> Params = new List<string>();
+        public List<CellParam> Params = new List<CellParam>();
         public ConfigCell(string path)
         {
             FolderPath = path;
         }
+        public CellParam TryGetFiled(string fieldName)
+        {
+            return Params.Find(t => t.FieldName.Equals(fieldName, StringComparison.CurrentCultureIgnoreCase));
+        }
+    }
+
+    [Serializable]
+    public class CellParam
+    {
+        public string FieldName;
+        public string Value;
     }
     
     public abstract class ConditionBase

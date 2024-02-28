@@ -17,7 +17,12 @@
         "CustomConfigPath": [
           {
             "FolderPath": "Assets",
-            "Params": []
+            "Params": [
+              {
+                "FieldName": "size",
+                "Value": "512"
+              }
+            ]
           }
         ],
         "CustomWhiteListPath": []

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using Object = UnityEngine.Object;
 
 namespace UChecker.Editor
 {
+    [Serializable]
     public class ReportInfo
     {
         public string ReportType;
@@ -21,10 +23,11 @@ namespace UChecker.Editor
             ReportItems.Clear();
         }
     }
-
+    [Serializable]
     public struct ReportItem
     {
         public string Info;
+        [NonSerialized]
         public Object Asset;
     }
 }

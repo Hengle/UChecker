@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -29,10 +30,14 @@ namespace UChecker.Editor
         public static void ForceRunAll()
         {
             var setting = UCheckConfig.GetConfig();
+            List<ReportInfo> reportInfos = new List<ReportInfo>();
             foreach (var commonCheck in setting.CommonChecks)
             {
                 commonCheck.Check(out var reportInfo);
+                reportInfos.Add(reportInfo);
             }
+            // TODO 生成报告
+            Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(reportInfos,Formatting.Indented));
         }
     
         private string m_select = "";
