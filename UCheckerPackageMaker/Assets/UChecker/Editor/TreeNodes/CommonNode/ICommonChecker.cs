@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace UChecker.Editor
 {
@@ -7,20 +8,44 @@ namespace UChecker.Editor
     public class CommonCheck
     {
         public CommonCheckerSetting Setting = new CommonCheckerSetting();
-        public ICheck CheckType;
-        public CommonCheck(ICheck ctx)
+        public string CheckType;
+        /// <summary>
+        /// 要有个默认 json反序列化问题
+        /// </summary>
+        public CommonCheck()
         {
-            CheckType = ctx;
+            
         }
-        public void Check()
+        public CommonCheck(Type check)
         {
-            CheckType?.Check(Setting);
+            CheckType = check.FullName;
+        }
+        public void Check(out ReportInfo reportInfo)
+        {
+            reportInfo = null;
+            Type type = Type.GetType(CheckType);
+            if (type!= null)
+            {
+                var obj = System.Activator.CreateInstance(type);
+                if (obj is ICheck)
+                {
+                    var c = obj as ICheck;
+                    c.Check(Setting,out reportInfo);
+                }
+                else
+                {
+                    Debug.LogError($"Type is not interface ICheck: {CheckType}");
+                }
+            }
+            else
+            {
+                Debug.LogError($"No type register {CheckType}");
+            }
         }
     }
-
     public interface ICheck
     {
-        void Check(CommonCheckerSetting setting);
+          void Check(CommonCheckerSetting setting,out ReportInfo reportInfo);
     }
     
     [Serializable]
@@ -28,18 +53,25 @@ namespace UChecker.Editor
     {
         public string Title;
         public string Rule;
-        public bool EnableCheck;
+        public bool EnableCheck; 
         public bool EnableFix;
         public bool EnableCustomConfig;
         //自定义配置
-        public List<string> CustomConfigPath;
+        public List<ConfigCell> CustomConfigPath = new List<ConfigCell>();
         //白名单
-        public List<string> CustomWhiteListPath;
-
-        public CommonCheckerSetting()
+        public List<string> CustomWhiteListPath= new List<string>();
+    }
+    
+    /// <summary>
+    /// 配置
+    /// </summary>
+    public class ConfigCell
+    {
+        public string FolderPath;
+        public List<string> Params = new List<string>();
+        public ConfigCell(string path)
         {
-            CustomConfigPath = new List<string>(){"Assets","Assets2"};
-            CustomWhiteListPath = new List<string>();
+            FolderPath = path;
         }
     }
     

@@ -16,7 +16,7 @@ namespace UChecker.Editor
         private const float TREE_VIEW_OFFSET = 5;
         private Dictionary<string,ITreeView> m_menuTrees = new Dictionary<string,ITreeView>();
 
-        [MenuItem("Tools/YScan/OpenCheckWindow")]
+        [MenuItem("Tools/YScan/Setting",priority = 999)]
         public static void OpenMapLineWindow()
         {
             UCheckerWindow pipeLineWindow = EditorWindow.GetWindow<UCheckerWindow>();
@@ -25,16 +25,15 @@ namespace UChecker.Editor
             pipeLineWindow.position = pipeLineWindow.GetWindowRect();
         }
         
-        [MenuItem("Tools/YScan/ForceRunAll")]
+        [MenuItem("Tools/YScan/ForceRunAll",priority = 1)]
         public static void ForceRunAll()
         {
-            var setting = UCheckWindowConfig.Get();
+            var setting = UCheckConfig.GetConfig();
             foreach (var commonCheck in setting.CommonChecks)
             {
-                commonCheck.Check();
+                commonCheck.Check(out var reportInfo);
             }
         }
-        
     
         private string m_select = "";
         // Start is called before the first frame update
@@ -44,10 +43,10 @@ namespace UChecker.Editor
         }
         private void OnEnable()
         {
-            m_menuTrees = UCheckWindowConfig.GetMenuTrees();
+            m_menuTrees = UCheckConfig.GetMenuTrees();
             if (!m_menuTrees.ContainsKey(m_select))
             {
-                m_select = UCheckWindowConfig.BASIC_SETTING;
+                m_select = UCheckConfig.BASIC_SETTING;
             }
         }
 
@@ -93,6 +92,15 @@ namespace UChecker.Editor
         private void DrawTreeView(ITreeView menuTree)
         {
             GUILayout.BeginArea(GetTreeViewArea());
+            GUI.color = Color.green;
+            if (GUILayout.Button("Save",GUILayout.Width(100)))
+            {
+                if (EditorUtility.DisplayDialog("Save", "保存配置？", "Yes", "No"))
+                {
+                    UCheckConfig.SaveConfig();
+                }
+            }
+            GUI.color = Color.white;
             menuTree.OnGUI(this);
             GUILayout.EndArea();
         }
