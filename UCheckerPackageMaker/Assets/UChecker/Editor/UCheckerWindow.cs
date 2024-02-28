@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,8 +12,9 @@ namespace UChecker.Editor
         public const float DRAW_LINE_AREA_WIDTH = 240;
         public const float MENU_BTN_HEIGHT = 30;
         private  static readonly Vector2 LeftPivot = new Vector2(0, 0);
-        private const float LINE_THICK = 2;
-        private const float TREE_VIEW_OFFSET = 5;
+        private const float LINE_THICK = 3;
+        private const float TREE_VIEW_OFFSET = 10;
+        private const float MENU_VIEW_OFFSET = 5;
         private Dictionary<string,ITreeView> m_menuTrees = new Dictionary<string,ITreeView>();
 
         [MenuItem("Tools/YScan/Setting",priority = 999)]
@@ -61,8 +61,8 @@ namespace UChecker.Editor
             var area = GetArea();
             GUILayout.BeginArea(area);
             Handles.color = Color.black;
-            var rect = GetWindowRect();
-            Handles.DrawLine(new Vector2(area.x + DRAW_LINE_AREA_WIDTH, 0), new Vector2(area.x + DRAW_LINE_AREA_WIDTH,rect.height * 2), LINE_THICK);
+            // TODO 绘制边框分割
+            Handles.DrawLine(new Vector2(area.x + DRAW_LINE_AREA_WIDTH, 0), new Vector2(area.x + DRAW_LINE_AREA_WIDTH,100000), LINE_THICK);
             Handles.DrawLine(new Vector2(0,1), new Vector2(area.width, 1), LINE_THICK);
             Handles.color = Color.white;
             GUILayout.BeginVertical();
@@ -78,7 +78,7 @@ namespace UChecker.Editor
                 {
                     GUI.color = color;
                 }
-                if (GUILayout.Button(menu, GUILayout.Width(DRAW_LINE_AREA_WIDTH-1), GUILayout.Height(MENU_BTN_HEIGHT)))
+                if (GUILayout.Button(menu, GUILayout.Width(DRAW_LINE_AREA_WIDTH-MENU_VIEW_OFFSET), GUILayout.Height(MENU_BTN_HEIGHT)))
                 {
                     m_select = menu;
                 }

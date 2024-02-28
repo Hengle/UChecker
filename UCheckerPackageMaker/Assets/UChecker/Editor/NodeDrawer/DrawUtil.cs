@@ -120,7 +120,7 @@ namespace UChecker.Editor
             GUILayout.BeginHorizontal();
             EditorGUILayout.Space(30);
             s_toAdd = EditorGUILayout.ObjectField(s_toAdd, typeof(Object),false,GUILayout.MinWidth(20));
-            if (GUILayout.Button("添加文件夹 +",GUILayout.Width(80)))
+            if (GUILayout.Button("添加文件夹 +",GUILayout.Width(90)))
             {
                 if (s_toAdd!=null)
                 {
@@ -191,7 +191,7 @@ namespace UChecker.Editor
             GUILayout.BeginHorizontal();
             EditorGUILayout.Space(30);
             s_toAdd = EditorGUILayout.ObjectField(s_toAdd, typeof(Object),false,GUILayout.MinWidth(20));
-            if (GUILayout.Button("添加文件夹 +",GUILayout.Width(80)))
+            if (GUILayout.Button("添加文件夹 +",GUILayout.Width(90)))
             {
                 if (s_toAdd!=null)
                 {

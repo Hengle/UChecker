@@ -2,7 +2,7 @@
 
 namespace UChecker.Editor
 {
-    public class BasicAssetNodeView : ITreeView
+    public class BasicAssetTreeView : ITreeView
     {
         public void OnGUI(UCheckerWindow window)
         {

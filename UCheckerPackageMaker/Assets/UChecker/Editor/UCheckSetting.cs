@@ -16,6 +16,7 @@ namespace UChecker.Editor
         public List<ConfigCell> GlobalDefaultPaths;
         public List<string> GlobalWhiteListPaths;
         public List<CommonCheck> CommonChecks;
+        public List<CommonCheck> CustomChecks;
     }
 
     // 配置系统
@@ -24,13 +25,16 @@ namespace UChecker.Editor
         private static UCheckSetting s_setting;
         public const string BASIC_SETTING = "基本设置";
         public const string BASIC_ASSET_SETTING = "基本资源检查";
+        public const string CUSTOM_SETTING = "自定义检查";
         public const string CONFIG_PATH = "Assets/UChecker/CheckConfig.json";
         
         public static Dictionary<string, ITreeView> GetMenuTrees()
         {
             Dictionary<string,ITreeView> menuTrees = new Dictionary<string,ITreeView>();
             menuTrees.Add(BASIC_SETTING,new CommonNodeView());
-            menuTrees.Add(BASIC_ASSET_SETTING,new BasicAssetNodeView());
+            menuTrees.Add(BASIC_ASSET_SETTING,new BasicAssetTreeView());
+            menuTrees.Add(CUSTOM_SETTING,new CommonNodeView());
+            
             return menuTrees;
         }
         
@@ -48,7 +52,7 @@ namespace UChecker.Editor
                     setting.GlobalDefaultPaths = new List<ConfigCell>(){new ConfigCell("Assets")};
                     setting.GlobalWhiteListPaths = new List<string>();
                     setting.CommonChecks = new List<CommonCheck>();
-                    
+                    setting.CustomChecks = new List<CommonCheck>();
                     var textureSizeCheck = new CommonCheck(typeof(CommonTextureSizeCheck))
                     {
                         Setting =
