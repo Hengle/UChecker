@@ -39,8 +39,8 @@ namespace UChecker.Editor
         private const float LINE_THICK = 3;
         private const float TREE_VIEW_OFFSET = 10;
         private const float MENU_VIEW_OFFSET = 5;
-        private Dictionary<string,ITreeView> m_menuTrees = new Dictionary<string,ITreeView>();
-        private string m_select = "";
+        private List<TreeViewItem> m_menuTrees = new List<TreeViewItem>();
+        private int m_select = 0;
         private GUIStyle btnStyle;
         // Start is called before the first frame update
         private void OnGUI()
@@ -50,10 +50,10 @@ namespace UChecker.Editor
         private void OnEnable()
         {
             btnStyle = null;
-            m_menuTrees = UCheckConfig.GetMenuTrees();
-            if (!m_menuTrees.ContainsKey(m_select))
+            m_menuTrees = UCheckConfig.GetMenuTreeItems();
+            if (m_select>= m_menuTrees.Count)
             {
-                m_select = UCheckConfig.BASIC_SETTING;
+                m_select = 0;
             }
         }
 
@@ -68,7 +68,6 @@ namespace UChecker.Editor
             // GUIStyle labelStyle = GUI.skin.label;
             // style.fontSize = 18;
             // labelStyle.fontSize = 18;
-            
             Color color = GUI.color;
             var area = GetArea();
             GUILayout.BeginArea(area);
@@ -79,10 +78,11 @@ namespace UChecker.Editor
             Handles.color = Color.white;
             GUILayout.BeginVertical();
             GUILayout.Space(1);
-            foreach (var menuTree in m_menuTrees)
+            for (int i = 0; i < m_menuTrees.Count; i++)
             {
-                var menu =menuTree.Key;
-                if (menu == m_select)
+                var menuTree = m_menuTrees[i];
+                var menuIndex = i;
+                if (menuIndex == m_select)
                 {
                     GUI.color = Color.green;
                 }
@@ -90,17 +90,16 @@ namespace UChecker.Editor
                 {
                     GUI.color = color;
                 }
-                if (GUILayout.Button(menu,btnStyle,GUILayout.Width(DRAW_LINE_AREA_WIDTH-MENU_VIEW_OFFSET), GUILayout.Height(MENU_BTN_HEIGHT)))
+                if (GUILayout.Button(menuTree.Name,btnStyle,GUILayout.Width(DRAW_LINE_AREA_WIDTH-MENU_VIEW_OFFSET), GUILayout.Height(MENU_BTN_HEIGHT)))
                 {
-                    m_select = menu;
+                    m_select = menuIndex;
                 }
                 GUILayout.Space(1);
             }
-    
             GUI.color = color;
-            if (m_menuTrees.TryGetValue(m_select,out var treeVIew))
+            if (m_select<m_menuTrees.Count)
             {
-                DrawTreeView(treeVIew);
+                DrawTreeView(m_menuTrees[m_select].View);
             }
             GUILayout.EndVertical();
             GUILayout.EndArea();

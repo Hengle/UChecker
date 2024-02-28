@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace UChecker.Editor
 {
+    [TreeViewAttribute("基本设置",999)]
     public class BasicSettingNodeView : ITreeView
     {
         public const string VERSION = "1.0.0";
