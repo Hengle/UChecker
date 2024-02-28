@@ -11,7 +11,7 @@ namespace UChecker.Editor
         public static void DrawSetting(CommonCheck setting, EditorWindow window)
         {
             GUILayout.BeginHorizontal();
-            bool isOpen = DrawHeader(setting.Setting.Title, setting.CheckType.GetType().FullName, false, true);
+            bool isOpen = DrawHeader(setting.Setting.Title, setting.CheckType, false, true);
             GUILayout.BeginHorizontal();
             setting.Setting.EnableFix = DrawEnableBtn("修复开启", "修复关闭", setting.Setting.EnableFix);
             setting.Setting.EnableCheck = DrawEnableBtn("开启检测", "关闭检测", setting.Setting.EnableCheck);
@@ -20,7 +20,7 @@ namespace UChecker.Editor
             GUILayout.EndHorizontal();
             if (isOpen)
             {
-                EditorGUILayout.LabelField($"[规则 ID]:{setting.CheckType.GetType().FullName}");
+                EditorGUILayout.LabelField($"[规则 ID]:{setting.CheckType}");
                 EditorGUILayout.LabelField($"说明:{setting.Setting.Rule}");
                 GUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("开启单独文件配置", GUILayout.MinWidth(300));

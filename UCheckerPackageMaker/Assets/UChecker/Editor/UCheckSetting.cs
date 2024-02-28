@@ -33,7 +33,7 @@ namespace UChecker.Editor
             Dictionary<string,ITreeView> menuTrees = new Dictionary<string,ITreeView>();
             menuTrees.Add(BASIC_SETTING,new CommonNodeView());
             menuTrees.Add(BASIC_ASSET_SETTING,new BasicAssetTreeView());
-            menuTrees.Add(CUSTOM_SETTING,new CommonNodeView());
+            menuTrees.Add(CUSTOM_SETTING,new CustomTreeView());
             
             return menuTrees;
         }
@@ -65,6 +65,19 @@ namespace UChecker.Editor
                     };
 
                     setting.CommonChecks.Add(textureSizeCheck);
+                    
+                    var customCheck = new CommonCheck(typeof(TestCustomCheck))
+                    {
+                        Setting =
+                        {
+                            Title = "自定义检查",
+                            Rule = "自定义检查规则",
+                            EnableCheck = true,
+                            EnableFix = false
+                        }
+                    };
+                    
+                    setting.CustomChecks.Add(customCheck);
                     s_setting = setting;
                     SaveConfig();
                 }

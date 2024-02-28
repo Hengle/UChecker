@@ -9,14 +9,7 @@ namespace UChecker.Editor
 {
     public class UCheckerWindow : EditorWindow
     {
-        public const float DRAW_LINE_AREA_WIDTH = 240;
-        public const float MENU_BTN_HEIGHT = 30;
-        private  static readonly Vector2 LeftPivot = new Vector2(0, 0);
-        private const float LINE_THICK = 3;
-        private const float TREE_VIEW_OFFSET = 10;
-        private const float MENU_VIEW_OFFSET = 5;
-        private Dictionary<string,ITreeView> m_menuTrees = new Dictionary<string,ITreeView>();
-
+      
         [MenuItem("Tools/YScan/Setting",priority = 999)]
         public static void OpenMapLineWindow()
         {
@@ -40,7 +33,16 @@ namespace UChecker.Editor
             Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(reportInfos,Formatting.Indented));
         }
     
+        
+        public const float DRAW_LINE_AREA_WIDTH = 240;
+        public const float MENU_BTN_HEIGHT = 30;
+        private  static readonly Vector2 LeftPivot = new Vector2(0, 0);
+        private const float LINE_THICK = 3;
+        private const float TREE_VIEW_OFFSET = 10;
+        private const float MENU_VIEW_OFFSET = 5;
+        private Dictionary<string,ITreeView> m_menuTrees = new Dictionary<string,ITreeView>();
         private string m_select = "";
+        private GUIStyle btnStyle;
         // Start is called before the first frame update
         private void OnGUI()
         {
@@ -48,6 +50,7 @@ namespace UChecker.Editor
         }
         private void OnEnable()
         {
+            btnStyle = null;
             m_menuTrees = UCheckConfig.GetMenuTrees();
             if (!m_menuTrees.ContainsKey(m_select))
             {
@@ -56,7 +59,17 @@ namespace UChecker.Editor
         }
 
         private void DrawMenuTree()
-        {   
+        {
+            if (btnStyle == null)
+            {
+                btnStyle = new GUIStyle(GUI.skin.button);
+                btnStyle.fontSize = 18;
+            }
+            // GUIStyle style = GUI.skin.button;
+            // GUIStyle labelStyle = GUI.skin.label;
+            // style.fontSize = 18;
+            // labelStyle.fontSize = 18;
+            
             Color color = GUI.color;
             var area = GetArea();
             GUILayout.BeginArea(area);
@@ -78,7 +91,7 @@ namespace UChecker.Editor
                 {
                     GUI.color = color;
                 }
-                if (GUILayout.Button(menu, GUILayout.Width(DRAW_LINE_AREA_WIDTH-MENU_VIEW_OFFSET), GUILayout.Height(MENU_BTN_HEIGHT)))
+                if (GUILayout.Button(menu,btnStyle,GUILayout.Width(DRAW_LINE_AREA_WIDTH-MENU_VIEW_OFFSET), GUILayout.Height(MENU_BTN_HEIGHT)))
                 {
                     m_select = menu;
                 }
@@ -98,7 +111,7 @@ namespace UChecker.Editor
         {
             GUILayout.BeginArea(GetTreeViewArea());
             GUI.color = Color.yellow;
-            if (GUILayout.Button("保存配置",GUILayout.Width(100)))
+            if (GUILayout.Button("保存配置",btnStyle,GUILayout.Width(100)))
             {
                 if (EditorUtility.DisplayDialog("Save", "保存配置？", "Yes", "No"))
                 {
