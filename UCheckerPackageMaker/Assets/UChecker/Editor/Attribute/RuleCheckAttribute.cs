@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 namespace UChecker.Editor
 {
     [Serializable]
-    public class CommonCheckAttribute : System.Attribute
+    public class RuleCheckAttribute : System.Attribute
     {
         public string title;
         public string rule;
@@ -13,7 +13,7 @@ namespace UChecker.Editor
         public bool enableFix;
         public int priority;
 
-        public CommonCheckAttribute(string title, string rule, bool enableCheck = true, bool enableCustomConfig = false, bool enableFix = false)
+        public RuleCheckAttribute(string title, string rule, bool enableCheck = true, bool enableCustomConfig = false, bool enableFix = false)
         {
             this.title = title;
             this.rule = rule;
@@ -23,7 +23,7 @@ namespace UChecker.Editor
             this.priority = 0;
         }
         
-        public CommonCheckAttribute(string title, string rule,int  priority = 1, bool enableCheck = true, bool enableCustomConfig = false, bool enableFix = false)
+        public RuleCheckAttribute(string title, string rule,int  priority = 1, bool enableCheck = true, bool enableCustomConfig = false, bool enableFix = false)
         {
             this.title = title;
             this.rule = rule;

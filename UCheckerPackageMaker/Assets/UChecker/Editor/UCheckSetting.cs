@@ -157,7 +157,7 @@ namespace UChecker.Editor
                     // 过滤掉泛型， 可有可无
                     if (targetType.IsGenericTypeDefinition)
                         continue;
-                    var attr = targetType.GetCustomAttribute<CommonCheckAttribute>();
+                    var attr = targetType.GetCustomAttribute<RuleCheckAttribute>();
                     if (attr == null)
                         continue;
                     // 此处识别到了添加了指定自定义属性的Type，以及属性中的值
