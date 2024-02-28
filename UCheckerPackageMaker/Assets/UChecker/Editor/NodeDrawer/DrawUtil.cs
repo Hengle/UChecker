@@ -12,8 +12,8 @@ namespace UChecker.Editor
             EditorGUILayout.BeginVertical();
             foreach (var check in checks)
             {
+                GUILayout.Space(4);
                 DrawUtil.DrawSetting(check,window);
-                GUILayout.Space(2);
             }
             EditorGUILayout.EndVertical();
         }

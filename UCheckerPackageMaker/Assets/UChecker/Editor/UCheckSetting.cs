@@ -77,6 +77,10 @@ namespace UChecker.Editor
             Debug.Log("input from local CustomChecks: " +input.CustomChecks.Count);
             target.CustomChecks.RemoveAll(t => input.CustomChecks.Exists(f=>t.Setting.Title.Equals(f.Setting.Title)));
             target.CustomChecks.AddRange(input.CustomChecks);
+            
+            
+            target.CommonChecks.Sort((x,y)=>y.Setting.Priority.CompareTo(x.Setting.Priority));
+            target.CustomChecks.Sort((x,y)=>y.Setting.Priority.CompareTo(x.Setting.Priority));
         }
         
         private static void AddBasicCheckSetting(List<CommonCheck> checks)
@@ -127,7 +131,7 @@ namespace UChecker.Editor
                 }
             }
             
-            checks.Sort((x,y)=>x.Setting.Priority.CompareTo(y.Setting.Priority));
+            checks.Sort((x,y)=>y.Setting.Priority.CompareTo(x.Setting.Priority));
             
               
             // var textureSizeCheck = new CommonCheck(typeof(CommonTextureSizeCheck))
