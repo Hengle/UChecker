@@ -1,14 +1,23 @@
 ﻿using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace UChecker.Editor
 {
     public static class DrawUtil
     {
-        public static void DrawSetting(CommonCheck setting, EditorWindow window)
+        public static void DrawCommonChecks(List<CommonCheck> checks, UCheckerWindow window)
+        {
+            // var checks =  UCheckConfig.GetConfig().CommonChecks;
+            EditorGUILayout.BeginVertical();
+            foreach (var check in checks)
+            {
+                DrawUtil.DrawSetting(check,window);
+                GUILayout.Space(2);
+            }
+            EditorGUILayout.EndVertical();
+        }
+        public static void DrawSetting(CommonCheck setting, UCheckerWindow window)
         {
             GUILayout.BeginHorizontal();
             bool isOpen = DrawHeader(setting.Setting.Title, setting.CheckType, false, true);
@@ -71,7 +80,7 @@ namespace UChecker.Editor
 
                 GUILayout.BeginHorizontal();
                 GUI.contentColor = EditorGUIUtility.isProSkin ? new Color(1f, 1f, 1f, 0.7f) : new Color(0f, 0f, 0f, 0.7f);
-                if (!GUILayout.Toggle(true, text, "PreToolbar2", GUILayout.MinWidth(900))) state = !state;
+                if (!GUILayout.Toggle(true, text, new GUIStyle("PreToolbar2"){fontSize = 16}, GUILayout.MinWidth(900))) state = !state;
                 GUI.contentColor = Color.white;
                 GUILayout.EndHorizontal();
             }
@@ -80,7 +89,7 @@ namespace UChecker.Editor
                 text = "<b><size=11>" + text + "</size></b>";
                 if (state) text = "\u25BC " + text;
                 else text = "\u25BA " + text;
-                if (!GUILayout.Toggle(true, text, "dragtab", GUILayout.MinWidth(900f))) state = !state;
+                if (!GUILayout.Toggle(true, text, new GUIStyle("dragtab"){fontSize = 16}, GUILayout.MinWidth(900f))) state = !state;
             }
 
             if (GUI.changed) EditorPrefs.SetBool(key, state);

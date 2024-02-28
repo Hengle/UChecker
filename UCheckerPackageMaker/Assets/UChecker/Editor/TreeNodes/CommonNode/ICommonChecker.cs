@@ -57,6 +57,7 @@ namespace UChecker.Editor
         public bool EnableCheck; 
         public bool EnableFix;
         public bool EnableCustomConfig;
+        public int Priority;
         //自定义配置
         public List<ConfigCell> CustomConfigPath = new List<ConfigCell>();
         //白名单

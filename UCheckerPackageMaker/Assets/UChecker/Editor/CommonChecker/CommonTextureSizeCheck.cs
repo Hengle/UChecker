@@ -3,11 +3,14 @@ using UnityEngine;
 
 namespace UChecker.Editor
 {
+    /// <summary>
+    /// 检查纹理尺寸
+    /// </summary>
+    [BasicAssetCheck("检查纹理尺寸","检查纹理尺寸 推荐纹理尺寸为 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512",2)]
     public class CommonTextureSizeCheck : BaseCommonCheck
     {
         public int MaxSize = 512;
         protected override string[] SearchPattern => new[] { "*.png", "*.jpg", "*.tga" };
-
         protected override void ForEachCheckConfigPath(string path, ConfigCell cell, ReportInfo reportInfo)
         {
             var param = cell.TryGetFiled("size");

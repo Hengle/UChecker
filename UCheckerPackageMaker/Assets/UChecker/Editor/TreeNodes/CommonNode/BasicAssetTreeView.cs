@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 namespace UChecker.Editor
 {
@@ -6,13 +7,7 @@ namespace UChecker.Editor
     {
         public void OnGUI(UCheckerWindow window)
         {
-            var checks =  UCheckConfig.GetConfig().CommonChecks;
-            EditorGUILayout.BeginVertical();
-            foreach (var check in checks)
-            {
-                DrawUtil.DrawSetting(check,window);
-            }
-            EditorGUILayout.EndVertical();
+            DrawUtil.DrawCommonChecks(UCheckConfig.GetConfig().CommonChecks,window);
         }
     }
 }

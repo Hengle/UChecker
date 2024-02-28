@@ -9,7 +9,6 @@ namespace UChecker.Editor
 {
     public class UCheckerWindow : EditorWindow
     {
-      
         [MenuItem("Tools/YScan/Setting",priority = 999)]
         public static void OpenMapLineWindow()
         {

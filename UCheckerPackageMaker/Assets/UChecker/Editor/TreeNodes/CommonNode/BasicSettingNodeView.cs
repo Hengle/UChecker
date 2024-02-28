@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UChecker.Editor
 {
-    public class CommonNodeView : ITreeView
+    public class BasicSettingNodeView : ITreeView
     {
         public const string VERSION = "1.0.0";
         public void OnGUI(UCheckerWindow window)
