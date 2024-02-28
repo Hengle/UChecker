@@ -10,7 +10,7 @@ namespace UChecker.Editor
     /// <summary>
     /// 检查问题压缩格式
     /// </summary>
-    [BasicAssetCheck("检查移动平台纹理压缩格式","检查纹理压缩格式 默认压缩格式 ASTC6x6 需要其它压缩格式可添加Format多个字段",3)]
+    [CommonCheckAttribute("检查移动平台纹理压缩格式","检查纹理压缩格式 默认压缩格式 ASTC6x6 需要其它压缩格式可添加Format多个字段",3)]
     public class CommonTextureFormatCheck : BaseCommonCheck
     {
         private List<TextureImporterFormat> m_defaultFormats = new List<TextureImporterFormat>();

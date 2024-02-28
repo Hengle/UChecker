@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UChecker.Editor
 {
-    [BasicAssetCheck("开启Read/Write的纹理","Read/Write的纹理开启后，系统会有有份纹理数据的副本，占用额外内存，双倍内存消耗",1)]
+    [CommonCheckAttribute("开启Read/Write的纹理","Read/Write的纹理开启后，系统会有有份纹理数据的副本，占用额外内存，双倍内存消耗",1)]
     public class CommonTextureReadWrite: BaseCommonCheck
     {
         protected override ECheckResult ForEachCheckAssetPath(string path, ConfigCell cell, ReportInfo reportInfo, out Object asset)

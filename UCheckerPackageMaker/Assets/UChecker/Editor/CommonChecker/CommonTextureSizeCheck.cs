@@ -6,7 +6,7 @@ namespace UChecker.Editor
     /// <summary>
     /// 检查纹理尺寸
     /// </summary>
-    [BasicAssetCheck("检查纹理尺寸","检查纹理尺寸 推荐纹理尺寸为 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512",2)]
+    [CommonCheckAttribute("检查纹理尺寸","检查纹理尺寸 推荐纹理尺寸为 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512",2)]
     public class CommonTextureSizeCheck : BaseCommonCheck
     {
         public int MaxSize = 512;
