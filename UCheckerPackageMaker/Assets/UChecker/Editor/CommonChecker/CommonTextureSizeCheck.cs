@@ -7,21 +7,22 @@ namespace UChecker.Editor
     {
         public int MaxSize = 512;
         protected override string[] SearchPattern => new[] { "*.png", "*.jpg", "*.tga" };
-        protected override void ForEachCheckConfigPath(string path, ConfigCell cell,ReportInfo reportInfo)
+
+        protected override void ForEachCheckConfigPath(string path, ConfigCell cell, ReportInfo reportInfo)
         {
             var param = cell.TryGetFiled("size");
-            if (param!=null && int.TryParse(param.Value, out int v))
+            if (param != null && int.TryParse(param.Value, out int v))
             {
                 MaxSize = v;
             }
             else
             {
-                v = 512;
+                MaxSize = 512;
             }
-            base.ForEachCheckConfigPath(path, cell,reportInfo);
+            base.ForEachCheckConfigPath(path, cell, reportInfo);
         }
 
-        protected override ECheckResult ForEachCheckAssetPath(string path,ConfigCell cell,ReportInfo reportInfo,out Object asset)
+        protected override ECheckResult ForEachCheckAssetPath(string path, ConfigCell cell, ReportInfo reportInfo, out Object asset)
         {
             asset = null;
             TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
@@ -36,8 +37,9 @@ namespace UChecker.Editor
                 if (curTexture == null)
                 {
                     Debug.Log("Null Path : " + path);
-                    return ECheckResult.None; 
+                    return ECheckResult.None;
                 }
+
                 int texSize = Mathf.Max(curTexture.width, curTexture.height);
                 if (maxTextureSize > texSize)
                 {
@@ -50,7 +52,7 @@ namespace UChecker.Editor
                 }
 
                 asset = curTexture;
-                return ECheckResult.Error;
+                return ECheckResult.CustomAdd;
                 // Resources.UnloadAsset(curTexture);
             }
             else

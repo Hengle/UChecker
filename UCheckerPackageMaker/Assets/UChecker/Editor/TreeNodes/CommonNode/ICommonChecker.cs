@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace UChecker.Editor
@@ -77,6 +78,10 @@ namespace UChecker.Editor
         public CellParam TryGetFiled(string fieldName)
         {
             return Params.Find(t => t.FieldName.Equals(fieldName, StringComparison.CurrentCultureIgnoreCase));
+        }
+        public List<CellParam> TryGetAllFiled(string fieldName)
+        {
+            return Params.FindAll(t => t.FieldName.Equals(fieldName, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 

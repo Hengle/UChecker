@@ -53,6 +53,7 @@ namespace UChecker.Editor
                     setting.GlobalWhiteListPaths = new List<string>();
                     setting.CommonChecks = new List<CommonCheck>();
                     setting.CustomChecks = new List<CommonCheck>();
+                    
                     var textureSizeCheck = new CommonCheck(typeof(CommonTextureSizeCheck))
                     {
                         Setting =
@@ -63,8 +64,19 @@ namespace UChecker.Editor
                             EnableFix = false
                         }
                     };
-
+                    var textureFormatSizeCheck = new CommonCheck(typeof(CommonTextureFormatCheck))
+                    {
+                        Setting =
+                        {
+                            Title = "检查移动平台纹理压缩格式",
+                            Rule = "检查纹理压缩格式 默认压缩格式 ASTC6x6 需要其它压缩格式可添加Format多个字段",
+                            EnableCheck = true,
+                            EnableFix = false
+                        }
+                    };
+                    
                     setting.CommonChecks.Add(textureSizeCheck);
+                    setting.CommonChecks.Add(textureFormatSizeCheck);
                     
                     var customCheck = new CommonCheck(typeof(TestCustomCheck))
                     {
