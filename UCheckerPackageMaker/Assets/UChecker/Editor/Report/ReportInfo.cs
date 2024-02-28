@@ -10,12 +10,14 @@ namespace UChecker.Editor
         public string ReportType;
         public string ReportDes;
         public List<ReportItem> ReportItems = new List<ReportItem>();
-        public void AddAssetError(Object obj, string info)
+        public void AddAssetError(string assetPath,Object obj,string info,ECheckResult result)
         {
             ReportItems.Add(new ReportItem()
             {
-                Info = info,
+                LogInfo = info,
                 Asset = obj,
+                AssetPath = assetPath,
+                Result = result,
             });
         }
         public void Clear()
@@ -26,7 +28,9 @@ namespace UChecker.Editor
     [Serializable]
     public struct ReportItem
     {
-        public string Info;
+        public string LogInfo;
+        public string AssetPath;
+        public ECheckResult Result;
         [NonSerialized]
         public Object Asset;
     }

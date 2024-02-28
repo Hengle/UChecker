@@ -14,7 +14,8 @@ namespace UChecker.Editor
         Pass,
         Error,
         Warning,
-        CustomAdd,
+        CustomAddError,
+        CustomAddWarning,
     }
 
     public class UCheckSetting
@@ -37,8 +38,8 @@ namespace UChecker.Editor
     {
         private static UCheckSetting s_setting;
         public const string CONFIG_PATH = "Assets/UChecker/CheckConfig.json";
-
         public const string NAME_SPACE = "UChecker.Editor";
+        public const string NAME_SPACE_FIX = "UChecker.Editor.RuleFixer";
 
         // public static Dictionary<string, ITreeView> GetMenuTrees()
         // {
@@ -126,14 +127,13 @@ namespace UChecker.Editor
             Debug.Log("input from local CustomChecks: " + input.CustomChecks.Count);
             target.CustomChecks.RemoveAll(t => input.CustomChecks.Exists(f => t.Setting.Title.Equals(f.Setting.Title)));
             target.CustomChecks.AddRange(input.CustomChecks);
-
-
             target.CommonChecks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
             target.CustomChecks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
         }
 
         private static void AddBasicCheckSetting(List<CommonCheck> checks)
         {
+            var fixer = GetFixTypes();
             var doMain = AppDomain.CurrentDomain;
             // var assemblies = doMain.ReflectionOnlyGetAssemblies(); 也可以通过反射
             var assemblies = doMain.GetAssemblies();
@@ -152,7 +152,6 @@ namespace UChecker.Editor
                     {
                         continue;
                     }
-
                     var targetType = types[j];
                     // 过滤掉泛型， 可有可无
                     if (targetType.IsGenericTypeDefinition)
@@ -165,8 +164,10 @@ namespace UChecker.Editor
                     string rule = attr.rule;
                     bool enableCheck = attr.enableCheck;
                     bool enableFix = attr.enableFix;
+                    fixer.TryGetValue(targetType.FullName, out var fixType);
                     var check = new CommonCheck(targetType)
                     {
+                        FixType = fixType,
                         Setting =
                         {
                             Title = tile,
@@ -179,56 +180,53 @@ namespace UChecker.Editor
                     checks.Add(check);
                 }
             }
-
             checks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
-
-
-            // var textureSizeCheck = new CommonCheck(typeof(CommonTextureSizeCheck))
-            // {
-            //     Setting =
-            //     {
-            //         Title = "检查纹理尺寸",
-            //         Rule = "检查纹理尺寸 推荐纹理尺寸为 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512",
-            //         EnableCheck = true,
-            //         EnableFix = false
-            //     }
-            // };
-            // var textureFormatSizeCheck = new CommonCheck(typeof(CommonTextureFormatCheck))
-            // {
-            //     Setting =
-            //     {
-            //         Title = "检查移动平台纹理压缩格式",
-            //         Rule = "检查纹理压缩格式 默认压缩格式 ASTC6x6 需要其它压缩格式可添加Format多个字段",
-            //         EnableCheck = true,
-            //         EnableFix = false
-            //     }
-            // };
-            // var textureAllOne = new CommonCheck(typeof(CommonTextureAllOne))
-            // {
-            //     Setting =
-            //     {
-            //         Title = "包含无效透明通道纹理检查",
-            //         Rule = "检测到Alpha通道数值都是1，导入时可去掉import alpha选项，节省内存",
-            //         EnableCheck = true,
-            //         EnableFix = false
-            //     }
-            // };
-            // var textureReadWrite = new CommonCheck(typeof(CommonTextureReadWrite))
-            // {
-            //     Setting =
-            //     {
-            //         Title = "开启Read/Write的纹理",
-            //         Rule = "Read/Write的纹理开启后，系统会有有份纹理数据的副本，占用额外内存，双倍内存消耗",
-            //         EnableCheck = true,
-            //         EnableFix = false
-            //     }
-            // };
-            // checks.Add(textureSizeCheck);
-            // checks.Add(textureFormatSizeCheck);
-            // checks.Add(textureAllOne);
-            // checks.Add(textureReadWrite);
         }
 
+        public static Dictionary<string,string> GetFixTypes()
+        {
+            Dictionary<string, string> fixers = new Dictionary<string, string>();
+            string fixRule = "UChecker.Editor.IRuleFixer";
+            var doMain = AppDomain.CurrentDomain;
+            // var assemblies = doMain.ReflectionOnlyGetAssemblies(); 也可以通过反射
+            var assemblies = doMain.GetAssemblies();
+            // 遍历，所有的程序集
+            for (int i = 0; i < assemblies.Length; i++)
+            {
+                //TODO 此处可以过滤掉不需要的程序集，提升效率
+                var assembly = assemblies[i];
+                var types = assembly.GetTypes();
+                // 遍历程序集内所有的类型
+                for (int j = 0; j < types.Length; j++)
+                {
+                    var type = types[j];
+                    var typeNameSpace = types[j].Namespace;
+                    // 过滤命名空间，提升效率
+                    if (string.IsNullOrEmpty(typeNameSpace) || !typeNameSpace.Equals(NAME_SPACE_FIX))
+                    {
+                        continue;
+                    }
+                    Type[] typeParameters = type.GetInterfaces();
+                    foreach (var t in typeParameters)
+                    {
+                        if (t.FullName.Contains(fixRule))
+                        {
+                            Type[] typeParameters2 = t.GetGenericArguments();
+                            foreach (var s in typeParameters2)
+                            {
+                                fixers.Add(s.FullName,type.FullName);
+                            }
+                        }
+                        Debug.Log(t.FullName);
+                    }
+                }
+            }
+            foreach (var fixer in fixers)
+            {
+                Debug.Log($"{fixer.Value} fix rule : {fixer.Key}");
+            }
+            return fixers;
+        }
         public static void SaveConfig()
         {
             if (s_setting != null)
