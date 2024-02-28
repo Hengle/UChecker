@@ -7,7 +7,7 @@ namespace UChecker.Editor
     /// 检查纹理尺寸
     /// </summary>
     [CommonCheckAttribute("检查纹理尺寸","检查纹理尺寸 推荐纹理尺寸为 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512",1000)]
-    public class CommonTextureSizeCheck : BaseCommonCheck
+    public class RuleCommonTextureSizeCheck : BaseCommonCheck
     {
         public int MaxSize = 512;
         protected override string[] SearchPattern => new[] { "*.png", "*.jpg", "*.tga" };
