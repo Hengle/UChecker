@@ -22,6 +22,8 @@ namespace UChecker.Editor
     {
         public List<ConfigCell> GlobalDefaultPaths;
         public List<string> GlobalWhiteListPaths;
+        
+        //这里暂不扩展 可能用dic扩展性高点但会增加不少查找逻辑 不直观
         public List<CommonCheck> CommonChecks;
         public List<CommonCheck> CustomChecks;
     }
@@ -44,7 +46,7 @@ namespace UChecker.Editor
         public static readonly string[] AssemblyPaths = new string[]
         {
             "Assembly-CSharp-Editor",
-            "Assembly-CSharp",
+            // "Assembly-CSharp",
         };
         // public static Dictionary<string, ITreeView> GetMenuTrees()
         // {
@@ -53,7 +55,7 @@ namespace UChecker.Editor
         //     menuTrees.Add(BASIC_ASSET_SETTING,new BasicAssetTreeView());
         //     menuTrees.Add(CUSTOM_SETTING,new CustomTreeView());
         //     return menuTrees;
-        // }   
+        // }  
         public static List<TreeViewItem> GetMenuTreeItems()
         {
             List<TreeViewItem> items = new List<TreeViewItem>();

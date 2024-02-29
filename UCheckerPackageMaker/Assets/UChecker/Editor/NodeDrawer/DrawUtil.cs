@@ -66,7 +66,7 @@ namespace UChecker.Editor
             return v;
         }
 
-        private static bool DrawHeader(string text, string key, bool forceOn, bool minimalistic)
+        public static bool DrawHeader(string text, string key, bool forceOn, bool minimalistic)
         {
             bool state = EditorPrefs.GetBool(key, true);
             if (!minimalistic) GUILayout.Space(3f);

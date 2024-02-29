@@ -8,10 +8,21 @@ namespace UChecker.Editor
     [Serializable]
     public class CommonCheck
     {
+        /// <summary>
+        /// 配置信息
+        /// </summary>
         public CommonCheckerSetting Setting = new CommonCheckerSetting();
+        /// <summary>
+        /// 检查类型
+        /// </summary>
         public string CheckType;
+        /// <summary>
+        /// 修复类型
+        /// </summary>
         public string FixType;
 
+        public bool HasFix => !string.IsNullOrEmpty(FixType);
+        
         /// <summary>
         /// 要有个默认 json反序列化问题
         /// </summary>
@@ -110,15 +121,5 @@ namespace UChecker.Editor
     {
         public string FieldName;
         public string Value;
-    }
-
-    public abstract class ConditionBase
-    {
-        public abstract bool Match(string assetPath);
-
-        public virtual string GetName()
-        {
-            return "条件名";
-        }
     }
 }
