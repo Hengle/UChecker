@@ -67,12 +67,12 @@ namespace UChecker.Editor
                 if (!m_defaultFormats.Contains(androidPlatformSetting.format))
                 {
                     error = true;
-                    reportInfo.AddAssetError(path,asset, string.Format("Android压缩格式 : {0} Android:{1}  正确格式可为:{2}", path, androidPlatformSetting.format.ToString(), formats),ECheckResult.Error);
+                    reportInfo.AddAssetError(path,asset, string.Format("Android压缩格式 : {0} Android:{1}  正确格式可为:{2}", path, androidPlatformSetting.format.ToString(), formats),ECheckResult.Error,cell);
                 }
                 if (!m_defaultFormats.Contains(iosPlatformSetting.format))
                 {
                     error = true;
-                    reportInfo.AddAssetError(path,asset, string.Format("Android压缩格式 : {0} IOS:{1}  正确格式可为:{2}", path, androidPlatformSetting.format.ToString(), formats),ECheckResult.Error);
+                    reportInfo.AddAssetError(path,asset, string.Format("Android压缩格式 : {0} IOS:{1}  正确格式可为:{2}", path, androidPlatformSetting.format.ToString(), formats),ECheckResult.Error,cell);
                 }
                 if (error)
                 {

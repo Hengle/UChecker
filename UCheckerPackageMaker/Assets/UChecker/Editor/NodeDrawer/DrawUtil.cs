@@ -48,6 +48,22 @@ namespace UChecker.Editor
                     EditorGUILayout.LabelField($"忽略的文件夹(已添加{setting.Setting.CustomWhiteListPath.Count}个 )", GUILayout.MinWidth(300));
                     DrawListPath(setting.Setting.CustomWhiteListPath);
                 }
+                GUILayout.BeginHorizontal();
+                GUILayout.Space(5);
+                Color color = GUI.color;
+                GUI.color = Color.yellow;
+                if (GUILayout.Button("检测",GUILayout.Width(200)))
+                {
+                    setting.Check();
+                }
+                GUILayout.Space(5);
+                if (GUILayout.Button("开启资源列表",GUILayout.Width(200)))
+                {
+                    UFixWindow.Open(setting);
+                }
+                GUI.color = color;
+                GUILayout.FlexibleSpace();
+                GUILayout.EndHorizontal();
             }
         }
 

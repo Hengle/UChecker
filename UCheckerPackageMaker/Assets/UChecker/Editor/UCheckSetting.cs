@@ -16,6 +16,7 @@ namespace UChecker.Editor
         Warning,
         CustomAddError,
         CustomAddWarning,
+        Fixed
     }
 
     public class UCheckSetting
@@ -46,16 +47,8 @@ namespace UChecker.Editor
         public static readonly string[] AssemblyPaths = new string[]
         {
             "Assembly-CSharp-Editor",
-            // "Assembly-CSharp",
         };
-        // public static Dictionary<string, ITreeView> GetMenuTrees()
-        // {
-        //     Dictionary<string,ITreeView> menuTrees = new Dictionary<string,ITreeView>();
-        //     menuTrees.Add(BASIC_SETTING,new BasicSettingNodeView());
-        //     menuTrees.Add(BASIC_ASSET_SETTING,new BasicAssetTreeView());
-        //     menuTrees.Add(CUSTOM_SETTING,new CustomTreeView());
-        //     return menuTrees;
-        // }  
+ 
         public static List<TreeViewItem> GetMenuTreeItems()
         {
             List<TreeViewItem> items = new List<TreeViewItem>();

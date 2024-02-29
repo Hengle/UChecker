@@ -25,8 +25,8 @@ namespace UChecker.Editor
             List<ReportInfo> reportInfos = new List<ReportInfo>();
             foreach (var commonCheck in setting.CommonChecks)
             {
-                commonCheck.Check(out var reportInfo);
-                reportInfos.Add(reportInfo);
+                commonCheck.Check();
+                reportInfos.Add(commonCheck.Report);
             }
             // TODO 生成报告
             Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(reportInfos,Formatting.Indented));
@@ -64,10 +64,6 @@ namespace UChecker.Editor
                 btnStyle = new GUIStyle(GUI.skin.button);
                 btnStyle.fontSize = 18;
             }
-            // GUIStyle style = GUI.skin.button;
-            // GUIStyle labelStyle = GUI.skin.label;
-            // style.fontSize = 18;
-            // labelStyle.fontSize = 18;
             Color color = GUI.color;
             var area = GetArea();
             GUILayout.BeginArea(area);

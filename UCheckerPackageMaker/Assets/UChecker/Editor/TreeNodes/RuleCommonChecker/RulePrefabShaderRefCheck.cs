@@ -18,7 +18,7 @@ namespace UChecker.Editor
             List<CellParam> shaderNames = cell.TryGetAllFiled("Shader");
             if (shaderNames.Count == 0)
             {
-                reportInfo.AddAssetError(path, AssetDatabase.LoadAssetAtPath<Object>(path), $"预制体Shader引用检查 没有参数Shader Name配置路径：{path}",ECheckResult.Warning);
+                reportInfo.AddAssetError(path, AssetDatabase.LoadAssetAtPath<Object>(path), $"预制体Shader引用检查 没有参数Shader Name配置路径：{path}",ECheckResult.Warning,cell);
                 return;
             }
             foreach (var cellParam in shaderNames)
@@ -67,7 +67,7 @@ namespace UChecker.Editor
 
             foreach (var item in errorShaders)
             {
-                reportInfo.AddAssetError(path,prefab,$"{path} 依赖项Shader错误：{item}",ECheckResult.Error);
+                reportInfo.AddAssetError(path,prefab,$"{path} 依赖项Shader错误：{item}",ECheckResult.Error,cell);
             }
 
             bool hasError = errorShaders.Count > 0;

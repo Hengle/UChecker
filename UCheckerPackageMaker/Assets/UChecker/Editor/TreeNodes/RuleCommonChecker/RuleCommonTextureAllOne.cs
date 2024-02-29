@@ -21,7 +21,7 @@ namespace UChecker.Editor
                 {
                     if (texture.alphaIsTransparency)
                     {
-                        reportInfo.AddAssetError(path, asset,$"非透明图片 alphaIsTransparency 去掉勾选 : {path}",ECheckResult.Error);
+                        reportInfo.AddAssetError(path, asset,$"非透明图片 alphaIsTransparency 去掉勾选 : {path}",ECheckResult.Error,cell);
                     }
                 }
             }

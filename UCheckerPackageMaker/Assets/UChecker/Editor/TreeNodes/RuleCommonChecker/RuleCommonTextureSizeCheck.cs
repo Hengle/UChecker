@@ -51,7 +51,7 @@ namespace UChecker.Editor
 
                 if (maxTextureSize > MaxSize)
                 {
-                    reportInfo.AddAssetError(path, curTexture, string.Format("Too Big Texture : {0} 当前尺寸为:{1} + 合理尺寸为:{2}", path, maxTextureSize, MaxSize),ECheckResult.Error);
+                    reportInfo.AddAssetError(path, curTexture, string.Format("Too Big Texture : {0} 当前尺寸为:{1} + 合理尺寸为:{2}", path, maxTextureSize, MaxSize),ECheckResult.Error,cell);
                 }
 
                 asset = curTexture;

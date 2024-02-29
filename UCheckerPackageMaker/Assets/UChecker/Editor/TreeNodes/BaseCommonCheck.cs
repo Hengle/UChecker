@@ -15,12 +15,6 @@ namespace UChecker.Editor
         /// </summary>
         protected abstract string[] SearchPattern { get; }
 
-        private object m_fixObj;
-        private MethodInfo m_fixMethod;
-        private object[] m_fixMethodParams;
-        public const int FIX_FUNCTION_PARAM_COUNT = 4;
-        public const string FIX_FUNCTION_NAME = "Fix";
-
         protected CommonCheck m_commonCheck;
 
         /// <summary>
@@ -28,27 +22,16 @@ namespace UChecker.Editor
         /// </summary>
         /// <param name="ctx"></param>
         /// <param name="reportInfo"></param>
-        public virtual void CheckAndFix(CommonCheck ctx, out ReportInfo reportInfo)
+        public virtual ReportInfo CheckAndFix(CommonCheck ctx)
         {
             m_commonCheck = ctx;
             var setting = ctx.Setting;
-            reportInfo = null;
             if (!setting.EnableCheck)
             {
-                return;
-            }
-
-            if (ctx.Setting.EnableFix)
-            {
-                InitFix(ctx);
+                return ctx.Report;
             }
 
             #region 过滤文件夹
-
-            reportInfo = new ReportInfo();
-
-            reportInfo.ReportType = setting.Title;
-            reportInfo.ReportDes = setting.Rule;
 
             List<ConfigCell> configs = null;
             List<string> whiteConfigs = null;
@@ -71,7 +54,7 @@ namespace UChecker.Editor
                 {
                     if (Directory.Exists(folder))
                     {
-                        ForEachCheckConfigPath(folder, configs[i], reportInfo);
+                        ForEachCheckConfigPath(folder, configs[i], ctx.Report);
                     }
                     else
                     {
@@ -79,6 +62,8 @@ namespace UChecker.Editor
                     }
                 }
             }
+
+            return ctx.Report;
 
             #endregion
         }
@@ -103,19 +88,24 @@ namespace UChecker.Editor
                     {
                         if (IsNeedFix(t))
                         {
-                            if (TryFix(filePath, t, cell))
+                            if (!m_commonCheck.Setting.WhiteListAssetPath.Contains(path))
                             {
-                                Debug.Log($"修复成功 FixRule: {m_commonCheck.FixType},Rule:{m_commonCheck.CheckType}:{filePath}",AssetDatabase.LoadAssetAtPath<Object>(filePath));
-                            }
-                            else
-                            {
-                                Debug.Log($"修复失败 FixRule: {m_commonCheck.FixType},Rule:{m_commonCheck.CheckType}:{filePath}",AssetDatabase.LoadAssetAtPath<Object>(filePath));
+                                if (TryFix(filePath, t, cell))
+                                {
+                                    reportInfo.AddFixAsset(path);
+                                    Debug.Log($"修复成功 FixRule: {m_commonCheck.FixType},Rule:{m_commonCheck.CheckType}:{filePath}", AssetDatabase.LoadAssetAtPath<Object>(filePath));
+                                }
+                                else
+                                {
+                                    Debug.Log($"修复失败 FixRule: {m_commonCheck.FixType},Rule:{m_commonCheck.CheckType}:{filePath}", AssetDatabase.LoadAssetAtPath<Object>(filePath));
+                                }
                             }
                         }
                     }
+
                     if (t == ECheckResult.Error || t == ECheckResult.Warning)
                     {
-                        reportInfo.AddAssetError(filePath, asset, $"{t.ToString()}: {filePath}", t);
+                        reportInfo.AddAssetError(filePath, asset, $"{t.ToString()}: {filePath}", t,cell);
                     }
                 }
             }
@@ -123,16 +113,12 @@ namespace UChecker.Editor
 
         private bool TryFix(string assetPath, ECheckResult checkResult, ConfigCell cell)
         {
-            if (m_fixMethod == null)
+            if (m_commonCheck == null)
             {
                 return false;
             }
-            m_fixMethodParams[0] = assetPath;
-            m_fixMethodParams[1] = checkResult;
-            m_fixMethodParams[2] = this;
-            m_fixMethodParams[3] = cell;
-            var suc = m_fixMethod?.Invoke(m_fixObj, m_fixMethodParams);
-            return suc != null && (bool)suc;
+
+            return m_commonCheck.FixContext.TryFix(this,assetPath, checkResult, cell);
         }
 
         private bool IsNeedFix(ECheckResult result)
@@ -148,27 +134,6 @@ namespace UChecker.Editor
                 case ECheckResult.CustomAddWarning:
                 default:
                     return true;
-            }
-        }
-
-        private void InitFix(CommonCheck ctx)
-        {
-            if (string.IsNullOrEmpty(ctx.FixType))
-            {
-                m_fixObj = null;
-                m_fixMethod = null;
-                m_fixMethodParams = null;
-                return;
-            }
-
-            Type type = Type.GetType(ctx.FixType);
-            if (type != null)
-            {
-                Debug.LogError(type.FullName);
-                Debug.LogError(type.IsGenericTypeDefinition);
-                m_fixObj = System.Activator.CreateInstance(type);
-                m_fixMethod = type.GetMethod(FIX_FUNCTION_NAME);
-                m_fixMethodParams = new object[FIX_FUNCTION_PARAM_COUNT];
             }
         }
 

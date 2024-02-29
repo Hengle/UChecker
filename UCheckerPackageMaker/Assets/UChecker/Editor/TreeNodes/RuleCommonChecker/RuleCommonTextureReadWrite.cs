@@ -16,7 +16,7 @@ namespace UChecker.Editor
                 asset = texture;
                 if (texture.isReadable)
                 {
-                    reportInfo.AddAssetError(path,asset,path,ECheckResult.Error);
+                    reportInfo.AddAssetError(path,asset,path,ECheckResult.Error,cell);
                 }
             }
             return ECheckResult.CustomAddError;
