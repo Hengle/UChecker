@@ -3,6 +3,10 @@ using UnityEngine.Serialization;
 
 namespace UChecker.Editor
 {
+    /// <summary>
+    /// 索引
+    /// 默认全关闭 防止对于工程大的检查卡工程
+    /// </summary>
     [Serializable]
     public class RuleCheckAttribute : System.Attribute
     {
@@ -13,7 +17,7 @@ namespace UChecker.Editor
         public bool enableFix;
         public int priority;
 
-        public RuleCheckAttribute(string title, string rule, bool enableCheck = true, bool enableCustomConfig = false, bool enableFix = false)
+        public RuleCheckAttribute(string title, string rule, bool enableCheck = false, bool enableCustomConfig = false, bool enableFix = false)
         {
             this.title = title;
             this.rule = rule;
@@ -23,7 +27,7 @@ namespace UChecker.Editor
             this.priority = 0;
         }
         
-        public RuleCheckAttribute(string title, string rule,int  priority = 1, bool enableCheck = true, bool enableCustomConfig = false, bool enableFix = false)
+        public RuleCheckAttribute(string title, string rule,int  priority = 1, bool enableCheck = false, bool enableCustomConfig = false, bool enableFix = false)
         {
             this.title = title;
             this.rule = rule;
