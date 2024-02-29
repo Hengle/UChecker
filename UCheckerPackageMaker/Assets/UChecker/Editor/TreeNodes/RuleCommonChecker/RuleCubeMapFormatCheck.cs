@@ -7,14 +7,11 @@ using Object = UnityEngine.Object;
 
 namespace UChecker.Editor
 {
-    /// <summary>
-    /// 检查问题压缩格式
-    /// </summary>
-    [RuleCheck("检查移动平台纹理压缩格式","检查纹理压缩格式 默认压缩格式 ASTC6x6 需要其它压缩格式可添加Format多个字段",998)]
-    public class RuleCommonTextureFormatCheck : BaseCommonCheck
+    [RuleCheck("检查移动平台CubeMap压缩格式","检查CubeMap压缩格式 默认压缩格式 ASTC6x6 需要其它压缩格式可添加Format多个字段",993)]
+    public class RuleCubeMapFormatCheck : BaseCommonCheck
     {
-        private List<TextureImporterFormat> m_defaultFormats = new List<TextureImporterFormat>();
-        protected override string[] SearchPattern => new[] { "*.png", "*.jpg", "*.tga" };
+          private List<TextureImporterFormat> m_defaultFormats = new List<TextureImporterFormat>();
+        protected override string[] SearchPattern => new[] { "*.exr"};
         public string GetFormatsString()
         {
             StringBuilder formats = new StringBuilder();
@@ -31,7 +28,7 @@ namespace UChecker.Editor
         {
             m_defaultFormats.Clear();
             var formats = cell.TryGetAllFiled("Format");
-            Debug.Log("自定义TextureImporterFormat数量：" + formats.Count);
+            Debug.Log("自定义CubeMap ImporterFormat数量：" + formats.Count);
             foreach (var param in formats)
             {
                 if (Enum.TryParse<TextureImporterFormat>(param.Value, out var format))
@@ -39,7 +36,6 @@ namespace UChecker.Editor
                     m_defaultFormats.Add(format);
                 }
             }
-
             if (m_defaultFormats.Count == 0)
             {
                 m_defaultFormats.Add(TextureImporterFormat.ASTC_6x6);
@@ -67,13 +63,17 @@ namespace UChecker.Editor
                 if (!m_defaultFormats.Contains(androidPlatformSetting.format))
                 {
                     error = true;
-                    reportInfo.AddAssetError(path,asset, string.Format("Android压缩格式 : {0} Android:{1}  正确格式可为:{2}", path, androidPlatformSetting.format.ToString(), formats),ECheckResult.Error,cell);
+                    reportInfo.AddAssetError(path, asset, string.Format("Android压缩格式 : {0} Android:{1}  正确格式可为:{2}", path, androidPlatformSetting.format.ToString(), formats),
+                        ECheckResult.Error, cell);
                 }
+
                 if (!m_defaultFormats.Contains(iosPlatformSetting.format))
                 {
                     error = true;
-                    reportInfo.AddAssetError(path,asset, string.Format("IOS压缩格式 : {0} IOS:{1}  正确格式可为:{2}", path, iosPlatformSetting.format.ToString(), formats),ECheckResult.Error,cell);
+                    reportInfo.AddAssetError(path, asset, string.Format("IOS压缩格式 : {0} IOS:{1}  正确格式可为:{2}", path, iosPlatformSetting.format.ToString(), formats),
+                        ECheckResult.Error, cell);
                 }
+
                 if (error)
                 {
                     return ECheckResult.CustomAddError;
@@ -88,7 +88,6 @@ namespace UChecker.Editor
             {
                 return ECheckResult.Warning;
             }
-            
         }
     }
 }

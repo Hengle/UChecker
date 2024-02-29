@@ -18,20 +18,6 @@ namespace UChecker.Editor
             pipeLineWindow.position = pipeLineWindow.GetWindowRect();
         }
         
-        [MenuItem("Tools/YScan/ForceRunAll",priority = 1)]
-        public static void ForceRunAll()
-        {
-            var setting = UCheckConfig.GetConfig();
-            List<ReportInfo> reportInfos = new List<ReportInfo>();
-            foreach (var commonCheck in setting.CommonChecks)
-            {
-                commonCheck.Check();
-                reportInfos.Add(commonCheck.Report);
-            }
-            // TODO 生成报告
-            Debug.Log(Newtonsoft.Json.JsonConvert.SerializeObject(reportInfos,Formatting.Indented));
-        }
-    
         
         public const float DRAW_LINE_AREA_WIDTH = 240;
         public const float MENU_BTN_HEIGHT = 30;

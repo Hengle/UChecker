@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.IO;
 using System.Reflection;
 using Newtonsoft.Json;
@@ -46,7 +45,9 @@ namespace UChecker.Editor
 
         public static readonly string[] AssemblyPaths = new string[]
         {
-            "Assembly-CSharp-Editor",
+            // "Assembly-CSharp-Editor",
+            "UChecker.Editor",
+            // "Assembly-CSharp",
         };
  
         public static List<TreeViewItem> GetMenuTreeItems()
