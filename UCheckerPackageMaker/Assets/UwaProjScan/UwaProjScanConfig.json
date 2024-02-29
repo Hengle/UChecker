@@ -6,7 +6,7 @@
       ],
       "Global_Ignore_Dirs" : [
       ],
-      "Global_Failed_Data_Folder" : "",
+      "Global_Failed_Data_Folder" : "G:/MyGitProjects/UChecker/UChecker/UCheckerPackageMaker/UwaScan/data.106.csv",
       "RunSelectedModules_Includes" : {
          "Basic_Assets_Check" : true,
          "Scenes_Check" : true,
