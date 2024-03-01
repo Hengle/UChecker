@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
 namespace UChecker.Editor.RuleFixer
 {
@@ -6,7 +7,12 @@ namespace UChecker.Editor.RuleFixer
     {
         public bool Fix(string path, ECheckResult result, RuleCommonTextureReadWrite check, ConfigCell cell)
         {
-            Debug.Log("Fix Asset :" +path);
+            TextureImporter textureImporter = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (textureImporter!=null)
+            {
+                textureImporter.isReadable = false;
+                textureImporter.SaveAndReimport();
+            }
             return true;
         }
     }

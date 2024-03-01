@@ -9,11 +9,12 @@ namespace UChecker.Editor
     [RuleCheck("检查纹理尺寸","检查纹理尺寸 推荐纹理尺寸为 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512",1000)]
     public class RuleCommonTextureSizeCheck : BaseCommonCheck
     {
+        public const string FIELD_SIZE_NAME = "size";
         public int MaxSize = 512;
         protected override string[] SearchPattern => new[] { "*.png", "*.jpg", "*.tga" };
         protected override void ForEachCheckConfigPath(string path, ConfigCell cell, ReportInfo reportInfo)
         {
-            var param = cell.TryGetFiled("size");
+            var param = cell.TryGetFiled(FIELD_SIZE_NAME);
             if (param != null && int.TryParse(param.Value, out int v))
             {
                 MaxSize = v;

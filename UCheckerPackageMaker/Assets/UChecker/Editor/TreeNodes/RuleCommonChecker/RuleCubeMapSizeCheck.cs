@@ -7,6 +7,7 @@ namespace UChecker.Editor
     [RuleCheck("CubeMap尺寸大小检查","检查CubeMap尺寸 推荐纹理尺寸为 小于 512*512,如果512*512显示效果够用，就不用1024*1024,默认检查值512\"",995)]
     public class RuleCubeMapSizeCheck : BaseCommonCheck
     {
+        public const string FIELD_SIZE_NAME = "size";
         protected override string[] SearchPattern { get; } = new string[] { "*.exr" };
          public int MaxSize = 512;
         protected override void ForEachCheckConfigPath(string path, ConfigCell cell, ReportInfo reportInfo)

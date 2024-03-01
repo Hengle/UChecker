@@ -13,6 +13,7 @@ namespace UChecker.Editor
     [RuleCheck("检查移动平台纹理压缩格式","检查纹理压缩格式 默认压缩格式 ASTC6x6 需要其它压缩格式可添加Format多个字段",998)]
     public class RuleCommonTextureFormatCheck : BaseCommonCheck
     {
+        public const string FORMAT_FIELD_NAME = "format";
         private List<TextureImporterFormat> m_defaultFormats = new List<TextureImporterFormat>();
         protected override string[] SearchPattern => new[] { "*.png", "*.jpg", "*.tga" };
         public string GetFormatsString()
@@ -30,7 +31,7 @@ namespace UChecker.Editor
         protected override void ForEachCheckConfigPath(string path, ConfigCell cell, ReportInfo reportInfo)
         {
             m_defaultFormats.Clear();
-            var formats = cell.TryGetAllFiled("Format");
+            var formats = cell.TryGetAllFiled(FORMAT_FIELD_NAME);
             Debug.Log("自定义TextureImporterFormat数量：" + formats.Count);
             foreach (var param in formats)
             {

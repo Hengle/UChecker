@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace UChecker.Editor
@@ -16,14 +17,27 @@ namespace UChecker.Editor
             var texture  = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
             if (texture!=null)
             {
+                FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+                fileStream.Seek(0, SeekOrigin.Begin);
+                //创建文件长度缓冲区
+                byte[] bytes = new byte[fileStream.Length];
+                //读取文件
+                fileStream.Read(bytes, 0, (int)fileStream.Length);
+                //释放文件读取流
+                fileStream.Close();
+                fileStream.Dispose();
+                fileStream = null;
+                Texture2D copy= new Texture2D(texture.width, texture.height);
+                copy.LoadImage(bytes);
                 asset = texture;
-                if (IsPureNotTransparent(texture))
+                if (IsPureNotTransparent(copy))
                 {
                     if (texture.alphaIsTransparency)
                     {
                         reportInfo.AddAssetError(path, asset,$"非透明图片 alphaIsTransparency 去掉勾选 : {path}",ECheckResult.Error,cell);
                     }
                 }
+                Object.DestroyImmediate(copy);
             }
             return ECheckResult.CustomAddError;
         }
@@ -31,7 +45,6 @@ namespace UChecker.Editor
         public static bool IsPureNotTransparent(Texture2D texture)
         {
             // TODO 这里接口需要修改
-            return false;
             Color[] pixels = texture.GetPixels();
             foreach (Color pixel in pixels)
             {
@@ -43,8 +56,6 @@ namespace UChecker.Editor
         
         public static bool IsPureTransparent(Texture2D texture)
         {
-            // TODO 这里接口需要修改
-            return false;
             Color[] pixels = texture.GetPixels();
             foreach (Color pixel in pixels)
             {

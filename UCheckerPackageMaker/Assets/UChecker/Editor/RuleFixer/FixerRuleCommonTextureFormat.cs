@@ -7,6 +7,7 @@ namespace UChecker.Editor.RuleFixer
         public bool Fix(string path, ECheckResult result, RuleCommonTextureFormatCheck check, ConfigCell cell)
         {
             Debug.Log("Fix Asset :" +path);
+      
             return true;
         }
     }

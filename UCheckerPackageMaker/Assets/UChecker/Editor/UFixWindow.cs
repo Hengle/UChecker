@@ -11,7 +11,6 @@ namespace UChecker.Editor
         private CommonCheck m_check;
         private HashSet<string> m_fixedAssets = new HashSet<string>();
         private List<ReportItem> m_errorAssets = new List<ReportItem>();
-        private HashSet<string> m_selectAssets = new HashSet<string>();
 
         public const string HelpInfo = "页面功能介绍:1.\n2.\n";
         public static void Open(CommonCheck commonCheck)
