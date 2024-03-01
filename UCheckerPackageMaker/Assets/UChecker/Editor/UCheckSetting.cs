@@ -122,7 +122,15 @@ namespace UChecker.Editor
             target.GlobalDefaultPaths = input.GlobalDefaultPaths;
             target.GlobalWhiteListPaths = input.GlobalWhiteListPaths;
             Debug.Log("input from local CommonChecks: " + input.Checks.Count);
-            target.Checks.RemoveAll(t => input.Checks.Exists(f => t.Setting.Title.Equals(f.Setting.Title)));
+            target.Checks.RemoveAll(t => input.Checks.Exists(f =>
+            {
+                bool find =  t.Setting.Title.Equals(f.Setting.Title);
+                if (find)
+                {
+                    f.Category = t.Category;
+                }
+                return find;
+            }));
             target.Checks.AddRange(input.Checks);
         }
 
@@ -140,7 +148,6 @@ namespace UChecker.Editor
                 }
             }
         }
-
         
         private static void AddBasicCheckSetting(UCheckSetting setting)
         {
@@ -177,27 +184,22 @@ namespace UChecker.Editor
                     switch (attr.category)
                     {
                         case ERuleCategory.BasicCheck:
-                            string tile = attr.title;
-                            string rule = attr.rule;
-                            bool enableCheck = attr.enableCheck;
-                            bool enableFix = attr.enableFix;
+                        case ERuleCategory.Custom:
+                        case ERuleCategory.Template:
                             var check = new CommonCheck(targetType)
                             {
                                 Category = attr.category,
                                 Setting =
                                 {
-                                    Title = tile,
-                                    Rule = rule,
-                                    EnableCheck = enableCheck,
-                                    EnableFix = enableFix,
+                                    Title = attr.title,
+                                    Rule = attr.rule,
+                                    EnableCheck = attr.enableCheck,
+                                    EnableFix = attr.enableFix,
+                                    EnableCustomConfig = attr.enableCustomConfig,
                                     Priority = attr.priority
                                 }
                             };
                             setting.Checks.Add(check);
-                            break;
-                        case ERuleCategory.Custom:
-                            break;
-                        case ERuleCategory.Template:
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();

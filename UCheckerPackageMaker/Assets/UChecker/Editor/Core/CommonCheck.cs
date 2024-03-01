@@ -16,10 +16,6 @@ namespace UChecker.Editor
         /// </summary>
         public CommonCheckerSetting Setting = new CommonCheckerSetting();
         /// <summary>
-        /// 模板设置路径
-        /// </summary>
-        public string TemplateAssetPath;
-        /// <summary>
         /// 检查类型
         /// </summary>
         public string CheckType;

@@ -8,7 +8,14 @@ namespace UChecker.Editor
     {
         public void OnGUI(UCheckerWindow window)
         {
-            EditorGUILayout.HelpBox("TODO",MessageType.Warning);
+            if (window.TryGet(ERuleCategory.Template,out var commonChecks))
+            {
+                DrawUtil.DrawCommonChecks(commonChecks,window);
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("TODO",MessageType.Warning);
+            }
         }
     }
 }

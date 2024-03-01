@@ -40,6 +40,7 @@ namespace UChecker.Editor
             {
                 if (!Checks.TryGetValue(check.Category,out var results))
                 {
+                    Debug.Log($"Add Category {check.Category.ToString()}");
                     results = new List<CommonCheck>();
                     Checks.Add(check.Category,results);
                 }

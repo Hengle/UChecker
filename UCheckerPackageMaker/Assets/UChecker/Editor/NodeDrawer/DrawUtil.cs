@@ -13,12 +13,17 @@ namespace UChecker.Editor
             foreach (var check in checks)
             {
                 GUILayout.Space(4);
-                DrawUtil.DrawSetting(check,window);
+                DrawUtil.DrawSetting(check, window);
             }
+
             EditorGUILayout.EndVertical();
         }
+
+        public static Dictionary<string, string> m_catchPaths = new Dictionary<string, string>();
+
         public static void DrawSetting(CommonCheck setting, UCheckerWindow window)
         {
+            Color color = GUI.color;
             GUILayout.BeginHorizontal();
             bool isOpen = DrawHeader(setting.Setting.Title, setting.CheckType, false, true);
             GUILayout.BeginHorizontal();
@@ -31,6 +36,49 @@ namespace UChecker.Editor
             {
                 EditorGUILayout.LabelField($"[规则 ID]:{setting.CheckType}");
                 EditorGUILayout.LabelField($"说明:{setting.Setting.Rule}");
+                if (setting.Category == ERuleCategory.Template)
+                {
+                    if (!m_catchPaths.TryGetValue(setting.CheckType, out var dirtyPath))
+                    {
+                        dirtyPath = setting.Setting.TemplateAssetPath;
+                        m_catchPaths.Add(setting.CheckType, dirtyPath);
+                    }
+
+                    EditorGUILayout.Space(3);
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label("设置模板资源");
+                    Object obj = null;
+                    if (!string.IsNullOrEmpty(dirtyPath))
+                    {
+                        obj = AssetDatabase.LoadAssetAtPath<Object>(dirtyPath);
+                    }
+                    obj = EditorGUILayout.ObjectField(obj, typeof(Object), false, GUILayout.MinWidth(20));
+                    if (obj != null)
+                    {
+                        dirtyPath = AssetDatabase.GetAssetPath(obj).Replace("\\", "/");
+                    }
+                    else
+                    {
+                        dirtyPath = null;
+                    }
+                    m_catchPaths[setting.CheckType] = dirtyPath;
+                    bool change = setting.Setting.TemplateAssetPath!=dirtyPath;
+                    GUI.color = change ? Color.yellow : Color.gray;
+                    if (GUILayout.Button("设为模板", GUILayout.Width(200)))
+                    {
+                        if (obj != null)
+                        {
+                            setting.Setting.TemplateAssetPath = dirtyPath;
+                            Debug.Log($"模板设置：{setting.Setting.TemplateAssetPath}", obj);
+                        }
+                    }
+
+                    GUI.color = color;
+                    GUILayout.FlexibleSpace();
+                    GUILayout.EndHorizontal();
+                    EditorGUILayout.Space(3);
+                }
+
                 GUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("开启单独文件配置", GUILayout.MinWidth(300));
                 setting.Setting.EnableCustomConfig = DrawEnableBtn("是", "否", setting.Setting.EnableCustomConfig);
@@ -43,24 +91,27 @@ namespace UChecker.Editor
                         setting.Setting.CustomConfigPath = new List<ConfigCell>();
                         setting.Setting.CustomConfigPath.Add(new ConfigCell("Assets"));
                     }
+
                     EditorGUILayout.LabelField($"目标文件夹添加(已添加{setting.Setting.CustomConfigPath.Count}个 )", GUILayout.MinWidth(300));
                     DrawListPath(setting.Setting.CustomConfigPath);
                     EditorGUILayout.LabelField($"忽略的文件夹(已添加{setting.Setting.CustomWhiteListPath.Count}个 )", GUILayout.MinWidth(300));
                     DrawListPath(setting.Setting.CustomWhiteListPath);
                 }
+
                 GUILayout.BeginHorizontal();
                 GUILayout.Space(5);
-                Color color = GUI.color;
                 GUI.color = Color.yellow;
-                if (GUILayout.Button("检测",GUILayout.Width(200)))
+                if (GUILayout.Button("检测", GUILayout.Width(200)))
                 {
                     setting.Check();
                 }
+
                 GUILayout.Space(5);
-                if (GUILayout.Button("开启资源列表",GUILayout.Width(200)))
+                if (GUILayout.Button("开启资源列表", GUILayout.Width(200)))
                 {
                     UFixWindow.Open(setting);
                 }
+
                 GUI.color = color;
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
@@ -96,7 +147,7 @@ namespace UChecker.Editor
 
                 GUILayout.BeginHorizontal();
                 GUI.contentColor = EditorGUIUtility.isProSkin ? new Color(1f, 1f, 1f, 0.7f) : new Color(0f, 0f, 0f, 0.7f);
-                if (!GUILayout.Toggle(true, text, new GUIStyle("PreToolbar2"){fontSize = 16}, GUILayout.MinWidth(900))) state = !state;
+                if (!GUILayout.Toggle(true, text, new GUIStyle("PreToolbar2") { fontSize = 16 }, GUILayout.MinWidth(900))) state = !state;
                 GUI.contentColor = Color.white;
                 GUILayout.EndHorizontal();
             }
@@ -105,7 +156,7 @@ namespace UChecker.Editor
                 text = "<b><size=11>" + text + "</size></b>";
                 if (state) text = "\u25BC " + text;
                 else text = "\u25BA " + text;
-                if (!GUILayout.Toggle(true, text, new GUIStyle("dragtab"){fontSize = 16}, GUILayout.MinWidth(900f))) state = !state;
+                if (!GUILayout.Toggle(true, text, new GUIStyle("dragtab") { fontSize = 16 }, GUILayout.MinWidth(900f))) state = !state;
             }
 
             if (GUI.changed) EditorPrefs.SetBool(key, state);
@@ -118,7 +169,7 @@ namespace UChecker.Editor
         }
 
         private static Object s_toAdd = null;
-        
+
         public static void DrawListPath(List<string> listData)
         {
             for (int i = 0; i < listData.Count; i++)
@@ -127,37 +178,43 @@ namespace UChecker.Editor
                 Object folder = AssetDatabase.LoadAssetAtPath<Object>(path);
                 GUILayout.BeginHorizontal();
                 EditorGUILayout.Space(20);
-                var newFolder = EditorGUILayout.ObjectField(folder, typeof(Object),false,GUILayout.MinWidth(20));
-                if (folder!=newFolder && newFolder!=null)
+                var newFolder = EditorGUILayout.ObjectField(folder, typeof(Object), false, GUILayout.MinWidth(20));
+                if (folder != newFolder && newFolder != null)
                 {
                     listData[i] = AssetDatabase.GetAssetPath(newFolder);
                 }
-                GUI.contentColor = folder == null? Color.red :Color.green;
-                GUILayout.Label(path,"PreToolbar2",GUILayout.MinWidth(500));
+
+                GUI.contentColor = folder == null ? Color.red : Color.green;
+                GUILayout.Label(path, "PreToolbar2", GUILayout.MinWidth(500));
                 GUI.contentColor = Color.white;
                 if (GUILayout.Button("删除 -"))
                 {
                     listData.RemoveAt(i);
                 }
+
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
             }
+
             GUILayout.BeginHorizontal();
             EditorGUILayout.Space(30);
-            s_toAdd = EditorGUILayout.ObjectField(s_toAdd, typeof(Object),false,GUILayout.MinWidth(20));
-            if (GUILayout.Button("添加文件夹 +",GUILayout.Width(90)))
+            s_toAdd = EditorGUILayout.ObjectField(s_toAdd, typeof(Object), false, GUILayout.MinWidth(20));
+            if (GUILayout.Button("添加文件夹 +", GUILayout.Width(90)))
             {
-                if (s_toAdd!=null)
+                if (s_toAdd != null)
                 {
-                    string path =  AssetDatabase.GetAssetPath(s_toAdd);    
+                    string path = AssetDatabase.GetAssetPath(s_toAdd);
                     listData.Add(path);
                 }
+
                 s_toAdd = null;
             }
+
             EditorGUILayout.LabelField("文件夹拖拽上再点添加");
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
         }
+
         public static void DrawListPath(List<ConfigCell> listData)
         {
             for (int i = 0; i < listData.Count; i++)
@@ -167,18 +224,20 @@ namespace UChecker.Editor
                 Object folder = AssetDatabase.LoadAssetAtPath<Object>(path);
                 GUILayout.BeginHorizontal();
                 EditorGUILayout.Space(20);
-                var newFolder = EditorGUILayout.ObjectField(folder, typeof(Object),false,GUILayout.MinWidth(20));
-                if (folder!=newFolder && newFolder!=null)
+                var newFolder = EditorGUILayout.ObjectField(folder, typeof(Object), false, GUILayout.MinWidth(20));
+                if (folder != newFolder && newFolder != null)
                 {
                     listData[i].FolderPath = AssetDatabase.GetAssetPath(newFolder);
                 }
-                GUI.contentColor = folder == null? Color.red :Color.green;
+
+                GUI.contentColor = folder == null ? Color.red : Color.green;
                 GUILayout.Label(path, "PreToolbar2", GUILayout.MinWidth(500));
                 GUI.contentColor = Color.white;
                 if (GUILayout.Button("删除 -"))
                 {
                     listData.RemoveAt(i);
                 }
+
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
                 GUILayout.BeginVertical();
@@ -186,18 +245,20 @@ namespace UChecker.Editor
                 {
                     GUILayout.BeginHorizontal();
                     EditorGUILayout.Space(25);
-                    var config =   cell.Params[j];
+                    var config = cell.Params[j];
                     GUILayout.Label("字段名:");
-                    config.FieldName= GUILayout.TextField(config.FieldName,GUILayout.MinWidth(200));
+                    config.FieldName = GUILayout.TextField(config.FieldName, GUILayout.MinWidth(200));
                     GUILayout.Label("值:");
-                    config.Value = GUILayout.TextField(config.Value,GUILayout.MinWidth(200));
+                    config.Value = GUILayout.TextField(config.Value, GUILayout.MinWidth(200));
                     if (GUILayout.Button("删除 -"))
                     {
                         cell.Params.RemoveAt(j);
                     }
+
                     GUILayout.FlexibleSpace();
                     GUILayout.EndHorizontal();
                 }
+
                 GUILayout.BeginHorizontal();
                 EditorGUILayout.Space(25);
                 if (GUILayout.Button("添加参数 +", GUILayout.Width(80)))
@@ -208,27 +269,31 @@ namespace UChecker.Editor
                         Value = "填写值",
                     });
                 }
+
                 GUILayout.FlexibleSpace();
                 GUILayout.EndHorizontal();
                 GUILayout.EndVertical();
             }
+
             GUILayout.Label("-----------------------------------------------------------------");
             GUILayout.BeginHorizontal();
             EditorGUILayout.Space(30);
-            s_toAdd = EditorGUILayout.ObjectField(s_toAdd, typeof(Object),false,GUILayout.MinWidth(20));
-            if (GUILayout.Button("添加文件夹 +",GUILayout.Width(90)))
+            s_toAdd = EditorGUILayout.ObjectField(s_toAdd, typeof(Object), false, GUILayout.MinWidth(20));
+            if (GUILayout.Button("添加文件夹 +", GUILayout.Width(90)))
             {
-                if (s_toAdd!=null)
+                if (s_toAdd != null)
                 {
-                   string path =  AssetDatabase.GetAssetPath(s_toAdd);    
-                   listData.Add(new ConfigCell(path));
+                    string path = AssetDatabase.GetAssetPath(s_toAdd);
+                    listData.Add(new ConfigCell(path));
                 }
+
                 s_toAdd = null;
             }
+
             EditorGUILayout.LabelField("文件夹拖拽上再点添加");
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
-            GUILayout.Label("-----------------------------------------------------------------");   
+            GUILayout.Label("-----------------------------------------------------------------");
         }
     }
 }

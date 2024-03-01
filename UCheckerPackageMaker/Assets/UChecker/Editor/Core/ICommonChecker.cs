@@ -27,11 +27,16 @@ namespace UChecker.Editor
         public bool EnableCustomConfig;
         public int Priority;
         public string TemplateAssetPath;
+     
         //自定义配置
         public List<ConfigCell> CustomConfigPath = new List<ConfigCell>();
         //白名单
         public List<string> CustomWhiteListPath = new List<string>();
         public List<string> WhiteListAssetPath = new List<string>();
+        
+        
+        [NonSerialized]
+        public string TemplateAssetDirtyPath;
     }
 
     /// <summary>
