@@ -2,10 +2,10 @@
     "name": "UChecker.Editor",
     "rootNamespace": "UChecker.Editor",
     "references": [],
-    "includePlatforms": [],
-    "excludePlatforms": [
+    "includePlatforms": [
         "Editor"
     ],
+    "excludePlatforms": [],
     "allowUnsafeCode": true,
     "overrideReferences": false,
     "precompiledReferences": [],
