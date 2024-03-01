@@ -14,9 +14,7 @@ namespace UChecker.Editor
         /// 过滤文件
         /// </summary>
         protected abstract string[] SearchPattern { get; }
-
-        protected CommonCheck m_commonCheck;
-
+        protected CommonCheck CommonCheck;
         /// <summary>
         /// 检查开始 这里处理白名单 开启检查等逻辑 一般无需重写
         /// </summary>
@@ -24,7 +22,7 @@ namespace UChecker.Editor
         /// <param name="reportInfo"></param>
         public virtual ReportInfo CheckAndFix(CommonCheck ctx)
         {
-            m_commonCheck = ctx;
+            CommonCheck = ctx;
             var setting = ctx.Setting;
             if (!setting.EnableCheck)
             {
@@ -84,20 +82,20 @@ namespace UChecker.Editor
                 {
                     string filePath = file.Replace("\\", "/");
                     var t = ForEachCheckAssetPath(filePath, cell, reportInfo, out var asset);
-                    if (m_commonCheck.Setting.EnableFix)
+                    if (CommonCheck.Setting.EnableFix)
                     {
                         if (IsNeedFix(t))
                         {
-                            if (!m_commonCheck.Setting.WhiteListAssetPath.Contains(path))
+                            if (!CommonCheck.Setting.WhiteListAssetPath.Contains(path))
                             {
                                 if (TryFix(filePath, t, cell))
                                 {
                                     reportInfo.AddFixAsset(path);
-                                    Debug.Log($"修复成功 FixRule: {m_commonCheck.FixType},Rule:{m_commonCheck.CheckType}:{filePath}", AssetDatabase.LoadAssetAtPath<Object>(filePath));
+                                    Debug.Log($"修复成功 FixRule: {CommonCheck.FixType},Rule:{CommonCheck.CheckType}:{filePath}", AssetDatabase.LoadAssetAtPath<Object>(filePath));
                                 }
                                 else
                                 {
-                                    Debug.Log($"修复失败 FixRule: {m_commonCheck.FixType},Rule:{m_commonCheck.CheckType}:{filePath}", AssetDatabase.LoadAssetAtPath<Object>(filePath));
+                                    Debug.Log($"修复失败 FixRule: {CommonCheck.FixType},Rule:{CommonCheck.CheckType}:{filePath}", AssetDatabase.LoadAssetAtPath<Object>(filePath));
                                 }
                             }
                         }
@@ -113,12 +111,12 @@ namespace UChecker.Editor
 
         private bool TryFix(string assetPath, ECheckResult checkResult, ConfigCell cell)
         {
-            if (m_commonCheck == null)
+            if (CommonCheck == null)
             {
                 return false;
             }
 
-            return m_commonCheck.FixContext.TryFix(this,assetPath, checkResult, cell);
+            return CommonCheck.FixContext.TryFix(this,assetPath, checkResult, cell);
         }
 
         private bool IsNeedFix(ECheckResult result)

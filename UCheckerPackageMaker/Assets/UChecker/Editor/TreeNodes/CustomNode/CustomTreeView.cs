@@ -2,18 +2,18 @@
 
 namespace UChecker.Editor
 {
-    [TreeViewAttribute("自定义检查",998)]
+    [TreeViewAttribute("自定义检查",1)]
     public class CustomTreeView : ITreeView
     {
         public void OnGUI(UCheckerWindow window)
         {
-            var checks =  UCheckConfig.GetConfig().CustomChecks;
             EditorGUILayout.BeginVertical();
-            foreach (var check in checks)
+            if (window.TryGet(ERuleCategory.Custom,out var commonChecks))
             {
-                DrawUtil.DrawSetting(check,window);
+                DrawUtil.DrawCommonChecks(commonChecks,window);
             }
             EditorGUILayout.EndVertical();
+
         }
     }
 }

@@ -24,8 +24,7 @@ namespace UChecker.Editor
         public List<string> GlobalWhiteListPaths;
         
         //这里暂不扩展 可能用dic扩展性高点但会增加不少查找逻辑 不直观
-        public List<CommonCheck> CommonChecks;
-        public List<CommonCheck> CustomChecks;
+        public List<CommonCheck>Checks;
     }
 
     public class TreeViewItem
@@ -100,9 +99,8 @@ namespace UChecker.Editor
                 UCheckSetting setting = new UCheckSetting();
                 setting.GlobalDefaultPaths = new List<ConfigCell>() { new ConfigCell("Assets") };
                 setting.GlobalWhiteListPaths = new List<string>();
-                setting.CommonChecks = new List<CommonCheck>();
-                setting.CustomChecks = new List<CommonCheck>();
-                AddBasicCheckSetting(setting.CommonChecks);
+                setting.Checks = new List<CommonCheck>();
+                AddBasicCheckSetting(setting);
                 var fixers = ReadFixTypes();
                 if (File.Exists(CONFIG_PATH))
                 {
@@ -111,8 +109,7 @@ namespace UChecker.Editor
                     SaveConfig();
                 }
                 s_setting = setting;
-                MapCheckFixer(s_setting.CommonChecks, fixers);
-                MapCheckFixer(s_setting.CustomChecks, fixers);
+                MapCheckFixer(s_setting.Checks, fixers);
                 SaveConfig();
             }
 
@@ -124,14 +121,9 @@ namespace UChecker.Editor
         {
             target.GlobalDefaultPaths = input.GlobalDefaultPaths;
             target.GlobalWhiteListPaths = input.GlobalWhiteListPaths;
-            Debug.Log("input from local CommonChecks: " + input.CommonChecks.Count);
-            target.CommonChecks.RemoveAll(t => input.CommonChecks.Exists(f => t.Setting.Title.Equals(f.Setting.Title)));
-            target.CommonChecks.AddRange(input.CommonChecks);
-            Debug.Log("input from local CustomChecks: " + input.CustomChecks.Count);
-            target.CustomChecks.RemoveAll(t => input.CustomChecks.Exists(f => t.Setting.Title.Equals(f.Setting.Title)));
-            target.CustomChecks.AddRange(input.CustomChecks);
-            target.CommonChecks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
-            target.CustomChecks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
+            Debug.Log("input from local CommonChecks: " + input.Checks.Count);
+            target.Checks.RemoveAll(t => input.Checks.Exists(f => t.Setting.Title.Equals(f.Setting.Title)));
+            target.Checks.AddRange(input.Checks);
         }
 
         private static void MapCheckFixer(List<CommonCheck> checks,Dictionary<string,string> fixers)
@@ -150,7 +142,7 @@ namespace UChecker.Editor
         }
 
         
-        private static void AddBasicCheckSetting(List<CommonCheck> checks)
+        private static void AddBasicCheckSetting(UCheckSetting setting)
         {
             Assembly[] assemblies = new Assembly[AssemblyPaths.Length];
             for (int i = 0; i < AssemblyPaths.Length; i++)
@@ -182,25 +174,36 @@ namespace UChecker.Editor
                     var attr = targetType.GetCustomAttribute<RuleCheckAttribute>();
                     if (attr == null)
                         continue;
-                    string tile = attr.title;
-                    string rule = attr.rule;
-                    bool enableCheck = attr.enableCheck;
-                    bool enableFix = attr.enableFix;
-                    var check = new CommonCheck(targetType)
+                    switch (attr.category)
                     {
-                        Setting =
-                        {
-                            Title = tile,
-                            Rule = rule,
-                            EnableCheck = enableCheck,
-                            EnableFix = enableFix,
-                            Priority = attr.priority
-                        }
-                    };
-                    checks.Add(check);
+                        case ERuleCategory.BasicCheck:
+                            string tile = attr.title;
+                            string rule = attr.rule;
+                            bool enableCheck = attr.enableCheck;
+                            bool enableFix = attr.enableFix;
+                            var check = new CommonCheck(targetType)
+                            {
+                                Category = attr.category,
+                                Setting =
+                                {
+                                    Title = tile,
+                                    Rule = rule,
+                                    EnableCheck = enableCheck,
+                                    EnableFix = enableFix,
+                                    Priority = attr.priority
+                                }
+                            };
+                            setting.Checks.Add(check);
+                            break;
+                        case ERuleCategory.Custom:
+                            break;
+                        case ERuleCategory.Template:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
                 }
             }
-            checks.Sort((x, y) => y.Setting.Priority.CompareTo(x.Setting.Priority));
         }
 
         public static Dictionary<string,string> ReadFixTypes()

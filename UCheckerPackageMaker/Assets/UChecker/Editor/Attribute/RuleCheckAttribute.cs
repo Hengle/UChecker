@@ -16,9 +16,22 @@ namespace UChecker.Editor
         public bool enableCustomConfig;
         public bool enableFix;
         public int priority;
+        public ERuleCategory category;
 
-        public RuleCheckAttribute(string title, string rule, bool enableCheck = false, bool enableCustomConfig = false, bool enableFix = false)
+        public RuleCheckAttribute(string title, string rule,int  priority = 1, bool enableCheck = false, bool enableCustomConfig = false, bool enableFix = false)
         {
+            this.category = ERuleCategory.BasicCheck;
+            this.title = title;
+            this.rule = rule;
+            this.enableCheck = enableCheck;
+            this.enableCustomConfig = enableCustomConfig;
+            this.enableFix = enableFix;
+            this.priority = priority;
+        }
+        
+        public RuleCheckAttribute(ERuleCategory category,string title, string rule, bool enableCheck = false, bool enableCustomConfig = false, bool enableFix = false)
+        {
+            this.category = category;
             this.title = title;
             this.rule = rule;
             this.enableCheck = enableCheck;
@@ -27,8 +40,9 @@ namespace UChecker.Editor
             this.priority = 0;
         }
         
-        public RuleCheckAttribute(string title, string rule,int  priority = 1, bool enableCheck = false, bool enableCustomConfig = false, bool enableFix = false)
+        public RuleCheckAttribute(ERuleCategory category,string title, string rule,int  priority = 1, bool enableCheck = false, bool enableCustomConfig = false, bool enableFix = false)
         {
+            this.category = category;
             this.title = title;
             this.rule = rule;
             this.enableCheck = enableCheck;

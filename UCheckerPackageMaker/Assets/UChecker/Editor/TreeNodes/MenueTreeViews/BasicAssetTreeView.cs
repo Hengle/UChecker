@@ -8,7 +8,10 @@ namespace UChecker.Editor
     {
         public void OnGUI(UCheckerWindow window)
         {
-            DrawUtil.DrawCommonChecks(UCheckConfig.GetConfig().CommonChecks,window);
+            if (window.TryGet(ERuleCategory.BasicCheck,out var commonChecks))
+            {
+                DrawUtil.DrawCommonChecks(commonChecks,window);
+            }
         }
     }
 }

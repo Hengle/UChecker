@@ -5,7 +5,7 @@ using UnityEngine;
 namespace UChecker.Editor
 {
     [TreeViewAttribute("基本设置", 999)]
-    public class BasicSettingNodeView : ITreeView
+    public class BasicSettingTreeView : ITreeView
     {
         public const string VERSION = "1.0.0";
 
@@ -17,26 +17,28 @@ namespace UChecker.Editor
             DrawUtil.DrawListPath(checkSetting.GlobalDefaultPaths);
             GUILayout.Label($"忽略的文件夹(已添加{checkSetting.GlobalWhiteListPaths.Count}个 )", "PreToolbar2", GUILayout.MinWidth(300));
             DrawUtil.DrawListPath(checkSetting.GlobalWhiteListPaths);
-            DrawBasicSetting(checkSetting, window);
+            DrawBasicSetting(window);
         }
 
-        private void DrawBasicSetting(UCheckSetting checkSetting, UCheckerWindow window)
+        private void DrawBasicSetting(UCheckerWindow window)
         {
             GUILayout.Space(5);
             if (DrawUtil.DrawHeader("检测模块设置", "CheckModuleSetting000", true, true))
             {
                 GUILayout.BeginVertical();
                 GUILayout.Space(5);
-                for (int i = 0; i < checkSetting.CommonChecks.Count; i++)
+                foreach (var checks in window.Checks.Values)
                 {
-                    GUILayout.Space(2);
-                    var setting = checkSetting.CommonChecks[i];
-                    EditorGUILayout.BeginHorizontal();
-                    GUILayout.Space(10);
-                    setting.Setting.EnableCheck = EditorGUILayout.Toggle(setting.Setting.Title, setting.Setting.EnableCheck, GUILayout.ExpandWidth(true));
-                    EditorGUILayout.EndHorizontal();
+                    for (int i = 0; i < checks.Count; i++)
+                    {
+                        GUILayout.Space(2);
+                        var setting = checks[i];
+                        EditorGUILayout.BeginHorizontal();
+                        GUILayout.Space(10);
+                        setting.Setting.EnableCheck = EditorGUILayout.Toggle(setting.Setting.Title, setting.Setting.EnableCheck, GUILayout.ExpandWidth(true));
+                        EditorGUILayout.EndHorizontal();
+                    }
                 }
-
                 GUILayout.EndVertical();
             }
 
@@ -45,17 +47,20 @@ namespace UChecker.Editor
             {
                 GUILayout.BeginVertical();
                 GUILayout.Space(5);
-                for (int i = 0; i < checkSetting.CommonChecks.Count; i++)
+                foreach (var checks in window.Checks.Values)
                 {
-                    var setting = checkSetting.CommonChecks[i];
-                    if (setting.HasFix)
+                    for (int i = 0; i < checks.Count; i++)
                     {
-                        EditorGUILayout.BeginHorizontal();
-                        GUILayout.Space(10);
-                        setting.Setting.EnableFix = EditorGUILayout.Toggle($"Fix {setting.Setting.Title}", setting.Setting.EnableFix);
-                        EditorGUILayout.TextField($"{setting.FixType}", GUILayout.Width(1000));
-                        GUILayout.FlexibleSpace();
-                        EditorGUILayout.EndHorizontal();
+                        var setting = checks[i];
+                        if (setting.HasFix)
+                        {
+                            EditorGUILayout.BeginHorizontal();
+                            GUILayout.Space(10);
+                            setting.Setting.EnableFix = EditorGUILayout.Toggle($"Fix {setting.Setting.Title}", setting.Setting.EnableFix);
+                            EditorGUILayout.TextField($"{setting.FixType}", GUILayout.Width(1000));
+                            GUILayout.FlexibleSpace();
+                            EditorGUILayout.EndHorizontal();
+                        }
                     }
                 }
                 GUILayout.EndVertical();

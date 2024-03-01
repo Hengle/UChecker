@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
@@ -13,12 +14,13 @@ namespace UChecker.Editor
         public static void OpenMapLineWindow()
         {
             UCheckerWindow pipeLineWindow = EditorWindow.GetWindow<UCheckerWindow>();
+            pipeLineWindow.Init();
             pipeLineWindow.Show();
             pipeLineWindow.titleContent = new GUIContent("Master Check");
             pipeLineWindow.position = pipeLineWindow.GetWindowRect();
         }
-        
-        
+
+        public Dictionary<ERuleCategory,List<CommonCheck>> Checks = new Dictionary<ERuleCategory,List<CommonCheck>> ();
         public const float DRAW_LINE_AREA_WIDTH = 240;
         public const float MENU_BTN_HEIGHT = 30;
         private  static readonly Vector2 LeftPivot = new Vector2(0, 0);
@@ -28,24 +30,40 @@ namespace UChecker.Editor
         private List<TreeViewItem> m_menuTrees = new List<TreeViewItem>();
         private int m_select = 0;
         private GUIStyle btnStyle;
-        // Start is called before the first frame update
-        private void OnGUI()
+
+        private void Init()
         {
-            DrawMenuTree();
-        }
-        private void OnEnable()
-        {
-            btnStyle = null;
             m_menuTrees = UCheckConfig.GetMenuTreeItems();
+            Checks.Clear();
+            var checks = UCheckConfig.GetConfig().Checks;
+            foreach (var check in checks)
+            {
+                if (!Checks.TryGetValue(check.Category,out var results))
+                {
+                    results = new List<CommonCheck>();
+                    Checks.Add(check.Category,results);
+                }
+                results.Add(check);
+            }
             if (m_select>= m_menuTrees.Count)
             {
                 m_select = 0;
             }
         }
+        
+        private void OnGUI()
+        {
+            DrawMenuTree();
+        }
+
+        public bool TryGet(ERuleCategory category,out List<CommonCheck> values)
+        {
+            return Checks.TryGetValue(category, out values);
+        }
 
         private void DrawMenuTree()
         {
-            if (btnStyle == null)
+            if (btnStyle==null)
             {
                 btnStyle = new GUIStyle(GUI.skin.button);
                 btnStyle.fontSize = 18;

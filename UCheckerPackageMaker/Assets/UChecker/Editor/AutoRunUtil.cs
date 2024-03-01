@@ -14,7 +14,7 @@ namespace UChecker.Editor
         {
             var setting = UCheckConfig.GetConfig();
             Dictionary<string, ReportInfo> reportInfos = new Dictionary<string, ReportInfo>();
-            foreach (var commonCheck in setting.CommonChecks)
+            foreach (var commonCheck in setting.Checks)
             {
                 commonCheck.Check();
                 reportInfos.Add(commonCheck.CheckType,commonCheck.Report);
