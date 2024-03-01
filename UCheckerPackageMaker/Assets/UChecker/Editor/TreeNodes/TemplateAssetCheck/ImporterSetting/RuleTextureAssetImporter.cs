@@ -44,6 +44,7 @@ namespace UChecker.Editor
             {
                 TextureImporterSettings assetSetting = new TextureImporterSettings();
                 m_textureImporter.ReadTextureSettings(assetSetting);
+                Debug.Log(assetSetting.Equals(m_templateSetting));
                 // 检查一列？
                 // settings.Add( assetSetting.alphaSource ==  m_templateSetting.alphaSource );
                 // settings.Add( assetSetting.mipmapFilter ==  m_templateSetting.mipmapFilter );
@@ -61,8 +62,8 @@ namespace UChecker.Editor
                 // settings.Add( assetSetting.singleChannelComponent ==  m_templateSetting.singleChannelComponent );
                 // settings.Add( assetSetting.flipbookRows ==  m_templateSetting.flipbookRows );
                 
-                importer.SetTextureSettings(m_templateSetting);
-                importer.SaveAndReimport(); 
+                // importer.SetTextureSettings(m_templateSetting);
+                // importer.SaveAndReimport(); 
                 // 上报或自动设置？ 考虑下 TODO
             }
             return ECheckResult.Pass;
